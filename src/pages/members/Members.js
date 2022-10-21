@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { __getReview } from "./membersSlice";
+import { __createMembers } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Button from "../element/button";
+import Button from "../../shared/Button";
 import { useState } from "react";
 
 function Members() {
@@ -13,13 +13,15 @@ function Members() {
   const navigate = useNavigate();
   const [account, setAccount] = useState({
     id: "",
+    nickname: "",
     password: "",
     passwordConfirm: "",
   });
 
-  const onAddHandler = (movie) => {
-    dispatch(__getReview(movie));
-    navigate("/moviepage");
+  const onAddHandler = (account) => {
+    dispatch(__createMembers(account));
+
+    // navigate("/");
   };
 
   const {
@@ -29,7 +31,7 @@ function Members() {
   return (
     <Layout>
       <StContainer>
-        <StTitle>결심을 작성해주세요!🔥</StTitle>
+        <StTitle>회원가입</StTitle>
         <Stform
           onSubmit={(event) => {
             event.preventDefault();
@@ -39,8 +41,8 @@ function Members() {
           <Stwrap>
             <Stlabel>아이디</Stlabel>
             <Stinputs
-              {...register("author", {
-                required: "이름을 입력해주세요.",
+              {...register("id", {
+                required: "아이디를 입력해주세요.",
                 minLength: {
                   value: 3,
                   message: "3글자 이상 입력해주세요.",
@@ -66,7 +68,7 @@ function Members() {
           <Stwrap>
             <Stlabel>닉네임</Stlabel>
             <Stinputs
-              {...register("title", {
+              {...register("nickname", {
                 required: "제목을 입력해주세요.",
                 minLength: {
                   value: 3,
@@ -83,7 +85,7 @@ function Members() {
                 const { value } = ev.target;
                 setAccount({
                   ...account,
-                  title: value,
+                  nickname: value,
                 });
               }}
             />
@@ -93,15 +95,15 @@ function Members() {
           <Stwrap>
             <Stlabel>비밀번호</Stlabel>
             <Stinputs
-              {...register("body", {
+              {...register("password", {
                 required: "내용을 입력해주세요.",
                 minLength: {
                   value: 3,
                   message: "3글자 이상 입력해주세요.",
                 },
                 pattern: {
-                  value: /^[A-za-z0-9가-힣]{3,10}$/,
-                  message: "가능한 문자: 영문 대소문자, 글자 단위 한글, 숫자",
+                  value: /^[A-za-z0-9]{3,10}$/,
+                  message: "가능한 문자: 영문 대소문자, 숫자",
                 },
               })}
               minLength="3"
@@ -110,7 +112,7 @@ function Members() {
                 const { value } = ev.target;
                 setAccount({
                   ...account,
-                  pa: value,
+                  password: value,
                 });
               }}
             />
@@ -119,15 +121,15 @@ function Members() {
           <Stwrap>
             <Stlabel>비밀번호 확인</Stlabel>
             <Stinputs
-              {...register("body", {
+              {...register("passwordConfirm", {
                 required: "내용을 입력해주세요.",
                 minLength: {
                   value: 3,
                   message: "3글자 이상 입력해주세요.",
                 },
                 pattern: {
-                  value: /^[A-za-z0-9가-힣]{3,10}$/,
-                  message: "가능한 문자: 영문 대소문자, 글자 단위 한글, 숫자",
+                  value: /^[A-za-z0-9]{3,10}$/,
+                  message: "가능한 문자: 영문 대소문자, 숫자",
                 },
               })}
               minLength="3"
@@ -142,7 +144,9 @@ function Members() {
             />
             <Warn>{errors?.body?.message}</Warn>
           </Stwrap>
-          <Button size="lg">가입하기</Button>
+          <Button onClick={onAddHandler} size="lg">
+            가입하기
+          </Button>
         </Stform>
       </StContainer>
     </Layout>
@@ -153,8 +157,8 @@ export default Members;
 
 const StContainer = styled.div`
   @font-face {
-    font-family: "ghanachoco";
-    src: url("https:cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ghanachoco.woff")
+    font-family: "SeoulHangangM";
+    src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulHangangM.woff")
       format("woff");
     font-weight: normal;
     font-style: normal;
@@ -172,7 +176,7 @@ const Warn = styled.div`
   /* div + & {
 margin: 0.5rem 0 0.8rem;
 } */
-  font-family: "ghanachoco";
+  font-family: "SeoulHangangM";
   margin-top: 5px;
   margin-left: -180px;
 `;
@@ -227,6 +231,7 @@ const StTitle = styled.div`
 `;
 
 const Stlabel = styled.div`
+  font-size: large;
   border: 1px solid gray;
   display: flex;
   flex-direction: column;
