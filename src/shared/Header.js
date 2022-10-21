@@ -11,8 +11,16 @@ function Header() {
           navigate("/");
         }}
       >
-        <HeadH1>가제: 한글오버플로우</HeadH1>
-        <HeadP>코드를 기록하고 마음껏 질문하세요</HeadP>
+        <div>
+          <HeadH1>가제: 한글오버플로우</HeadH1>
+          <HeadP>코드를 기록하고 마음껏 질문하세요</HeadP>
+        </div>
+        <Login>
+          {/* {
+            .isDone ? <button>로그아웃</button> : <button>로그인</button>
+          } */}
+          <button>작성하기</button>
+        </Login>
       </InnerHead>
     </Head>
   );
@@ -34,6 +42,9 @@ const Head = styled.div`
 const InnerHead = styled.div`
   font-family: "ONE-Mobile-Title";
   cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const HeadH1 = styled.h1`
@@ -45,3 +56,8 @@ const HeadP = styled.p`
   font-size: 16px;
   font-weight: 500;
 `;
+
+const Login = styled.div`
+  display: flex;
+  align-items: center;
+`
