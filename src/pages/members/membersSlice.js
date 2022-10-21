@@ -1,21 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { membersApi } from "../../shared/Instance";
 
 const initialState = {
-  id: "",
-  nickname: "",
-  password: "",
-  passwordConfirm: "",
+  members: [
+    {
+      id: "",
+      nickname: "",
+      password: "",
+      passwordConfirm: "",
+    },
+  ],
+  member: {
+    id: "",
+    nickname: "",
+    password: "",
+    passwordConfirm: "",
+  },
 };
 
 const url = process.env.REACT_APP_URL1;
 
-export const __getReviews = createAsyncThunk(
-  "book/getReviews",
+export const AcyncGetMember = createAsyncThunk(
+  "members/getMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(url);
-
+      const data = await membersApi.getMember();
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -23,11 +33,12 @@ export const __getReviews = createAsyncThunk(
   }
 );
 
-export const __getReviewOne = createAsyncThunk(
-  "book/getReviewOne",
+export const AcyncCreateMember = createAsyncThunk(
+  "members/createMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(url`/${payload}`);
+      const data = await membersApi.creatMember(payload);
+      console.log(data);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -35,21 +46,8 @@ export const __getReviewOne = createAsyncThunk(
     }
   }
 );
-
-export const __createMembers = createAsyncThunk(
-  "members/createMembers",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.post("http://localhost:4000/members", payload);
-      console.log(data.data);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-export const __deleteReviews = createAsyncThunk(
-  "book/deleteReviews",
+export const AcyncDeleteMember = createAsyncThunk(
+  "members/deleteMember",
   async (payload, thunkAPI) => {
     try {
       await axios.delete(url + `/${payload}`);
@@ -60,8 +58,8 @@ export const __deleteReviews = createAsyncThunk(
   }
 );
 
-export const __updateReviews = createAsyncThunk(
-  "book/updateReviews",
+export const AcyncUpdateMember = createAsyncThunk(
+  "members/updateMember",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch(url + `/${payload.id}`, payload);
@@ -99,22 +97,23 @@ const membersSlice = createSlice({
     },
   },
   extraReducers: {
-    [__getReviews.fulfilled]: (state, action) => {
+    [AcyncGetMember.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.reviews = action.payload;
+      state.review = action.payload;
+      console.log(action.payload);
     },
-    [__createMembers.fulfilled]: (state, { payload }) => {
+    [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
       state.members.push(payload);
       console.log("paylaod", payload);
     },
-    [__deleteReviews.fulfilled]: (state, { payload }) => {
+    [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
       state.reviews = state.reviews.filter((item) => {
         return item.id !== payload;
       });
     },
-    [__updateReviews.fulfilled]: (state, { payload }) => {
+    [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
       state.reviews.forEach((element) => {
         if (element.id === payload.id) {
@@ -122,10 +121,6 @@ const membersSlice = createSlice({
           element.content = payload.content;
         } else return element;
       });
-    },
-    [__getReviewOne.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.review = action.payload;
     },
   },
 });
