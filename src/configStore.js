@@ -2,10 +2,10 @@
 
 import { configureStore } from "@reduxjs/toolkit";
 import { getDefaultMiddleware } from "@reduxjs/toolkit";
-import book from "./pages/members/membersSlice";
+import lists from "./pages/post/postSlice";
 
 const store = configureStore({
-  reducer: { book: book },
+  reducer: { lists: lists },
   devTools: process.env.NODE_ENV === "development",
   middleware: getDefaultMiddleware({
     serializableCheck: false,
