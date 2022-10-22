@@ -72,7 +72,18 @@ function Main() {
 
       <List>
         <div>
-          <h2>코드👾</h2>
+          <div>
+            {content == "code" ? (
+              <h2>코드👾</h2>
+            ) : content == "error" ? (
+              <h2>에러👾</h2>
+            ) : content == "chat" ? (
+              <h2>잡담👾</h2>
+            ) : (
+              <h2>질문👾</h2>
+            )}
+          </div>
+
           {posts.map((post) => {
             if (content == post.name) {
               return <Code key={post.id} postsData={post} />;
