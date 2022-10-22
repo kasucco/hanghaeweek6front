@@ -2,12 +2,13 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { AcyncCreateMember, AcyncGetMember } from "./membersSlice";
+import { AcyncCreateMember, AcyncPostMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
 import { useState } from "react";
 import * as MB from "./membersCSS";
+import { isAsyncThunkAction } from "@reduxjs/toolkit";
 
 function Members() {
   const dispatch = useDispatch();
@@ -16,17 +17,17 @@ function Members() {
     id: "",
     nickname: "",
     password: "",
-    passwordConfirm: "",
+    confirm: "",
   });
 
-  const onAddHandler = (account) => {
+  const onAddHandler = () => {
     dispatch(AcyncCreateMember(account));
 
     // navigate("/");
   };
 
   const onLoginHandler = () => {
-    dispatch(AcyncGetMember());
+    dispatch(AcyncPostMember());
 
     // navigate("/");
   };
@@ -128,7 +129,7 @@ function Members() {
           <MB.Stwrap>
             <MB.Stlabel>비밀번호 확인</MB.Stlabel>
             <MB.Stinputs
-              {...register("passwordConfirm", {
+              {...register("confirm", {
                 required: "내용을 입력해주세요.",
                 minLength: {
                   value: 3,
@@ -145,7 +146,7 @@ function Members() {
                 const { value } = ev.target;
                 setAccount({
                   ...account,
-                  passwordConfirm: value,
+                  confirm: value,
                 });
               }}
             />
