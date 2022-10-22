@@ -3,29 +3,34 @@ import axios from "axios";
 import { membersApi } from "../../shared/Instance";
 
 const initialState = {
-  members: [
-    {
-      id: "",
-      nickname: "",
-      password: "",
-      passwordConfirm: "",
-    },
-  ],
-  member: {
-    id: "",
-    nickname: "",
-    password: "",
-    passwordConfirm: "",
+  members: {
+    signup: [
+      {
+        id: "signup",
+        nickname: "signup",
+        password: "signup",
+        confirm: "signup",
+      },
+    ],
+    login: [
+      {
+        id: "",
+        nickname: "",
+        password: "",
+        confirm: "",
+      },
+    ],
   },
 };
 
 const url = process.env.REACT_APP_URL1;
 
-export const AcyncGetMember = createAsyncThunk(
-  "members/getMember",
+export const AcyncPostMember = createAsyncThunk(
+  "members/postMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await membersApi.getMember();
+      const data = await membersApi.postMember(payload);
+      console.log("getDate", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -37,9 +42,8 @@ export const AcyncCreateMember = createAsyncThunk(
   "members/createMember",
   async (payload, thunkAPI) => {
     try {
+      console.log("create", payload);
       const data = await membersApi.creatMember(payload);
-      console.log(data);
-
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -97,14 +101,14 @@ const membersSlice = createSlice({
     },
   },
   extraReducers: {
-    [AcyncGetMember.fulfilled]: (state, action) => {
+    [AcyncPostMember.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.review = action.payload;
-      console.log(action.payload);
+      state.member = action.payload;
     },
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members.push(payload);
+
+      state.members.signup.push(payload);
       console.log("paylaod", payload);
     },
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
