@@ -1,13 +1,39 @@
 import axios from "axios";
 
+const token = sessionStorage.getItem("token");
+
 export const instance = axios.create({
-  baseURL: `http://43.201.72.85:3000/`,
+  baseURL: `http://52.79.218.57:3000/`,
 });
 
 export const membersApi = {
-  postMember: (payload) => instance.post(`/members/login`, payload), //각각의 get,post,delete,patch입니다!
+  loginMember: (paylaod) => instance.post(`/members/login`, paylaod), //각각의 get,post,delete,patch입니다!
   creatMember: (members) => instance.post(`/members/signup`, members),
   deleteMember: (membersId) => instance.delete(`/members/${membersId}`),
   updateMember: (membersId, edit) =>
     instance.patch(`/members/${membersId}`, { memo: edit }),
+  getMember: () => instance.get(`/members/login/:id`),
+};
+
+export const postsApi = {
+  //각각의 get,post,delete,patch입니다!
+  creatPost: (posts) => {
+    console.log(posts);
+    return instance.post(`/posts`, posts, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  },
+
+  deletePost: (membersId) =>
+    instance.delete(`/posts/${membersId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    }),
+  updatePost: (membersId, edit) =>
+    instance.patch(
+      `/posts/${membersId}`,
+      { memo: edit },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    ),
 };

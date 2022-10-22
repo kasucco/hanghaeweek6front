@@ -22,7 +22,7 @@ const BtnCover = styled.div`
 const BtnStyle = styled.button`
   width: 150px;
   height: 40px;
-  background: transparent;
+  background: ghostwhite;
   box-sizing: border-box;
   border: 2px solid #000;
   border-radius: 10px;
