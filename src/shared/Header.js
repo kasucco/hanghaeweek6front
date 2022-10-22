@@ -33,10 +33,11 @@ const Head = styled.div`
   box-sizing: border-box;
   height: 100px;
   background: transparent;
-  border: 1px solid #666;
+  border: 2px solid black;
   display: flex;
   align-items: center;
   margin-bottom: 30px;
+  background-color: #DEB887;
 `;
 
 const InnerHead = styled.div`

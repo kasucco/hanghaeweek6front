@@ -41,8 +41,8 @@ function Members() {
         <MB.StTitle>회원가입</MB.StTitle>
         <MB.Stform
           onSubmit={(event) => {
-            event.preventDefault();
-            onAddHandler(account);
+            // event.preventDefault();
+            // onAddHandler(account);
           }}
         >
           <MB.Stwrap>
