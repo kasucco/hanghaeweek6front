@@ -14,7 +14,7 @@ function Layout({ children }) {
 
 export default Layout;
 
-const LayoutTop = styled.div`
+export const LayoutTop = styled.div`
   width: 1200px;
   margin: 0 auto;
 `;
