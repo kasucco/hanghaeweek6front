@@ -10,6 +10,10 @@ function Main() {
   const dispatch = useDispatch()
   const { isLoading, error, posts } = useSelector((state) => state.posts);
   console.log(posts)
+  const onclickHandler = () => {
+
+  }
+
   useEffect(() => {
     dispatch(__getPosts())
   }, [dispatch])
@@ -24,7 +28,7 @@ function Main() {
     <Layout>
       <Nav>
         <Gnb>
-          <div>코드</div>
+          <div onClick={onclickHandler}>코드</div>
           <div>에러</div>
           <div>잡담</div>
           <div>질문</div>
@@ -76,8 +80,10 @@ div:hover{
 const List = styled.div`
 width: 1200px;
 margin: 30px auto;
-border: 1px solid black;
+border: 2px solid black;
 box-sizing: border-box;
 border-radius: 10px;
+background-color: #DEB887;
+;
 `
 

@@ -18,7 +18,8 @@ const CodeBox = styled.div`
 width: 90%;
 height: 200px;
 margin: 20px auto;
-border: 1px solid black;
+border: 2px solid black;
 border-radius: 10px;
 margin-top: 20px;
+background-color: white;
 `
