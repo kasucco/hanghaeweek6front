@@ -1,13 +1,78 @@
 import React from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
+import { useNavigate } from "react-router-dom";
 
 function Detail() {
+  const navigate = useNavigate();
+  // const { isLoading, error, lists } = useSelector((state) => state.lists);
   return (
-    <Layout>
-      <div>디테일 페이지</div>
-    </Layout>
+    <>
+      <Layout>
+        <Nav>
+          <Gnb>
+            <div
+              onClick={() => {
+                navigate("/code");
+              }}
+            >
+              코드
+            </div>
+            <div
+              onClick={() => {
+                navigate("/error");
+              }}
+            >
+              에러
+            </div>{" "}
+            <div
+              onClick={() => {
+                navigate("/chat");
+              }}
+            >
+              잡담
+            </div>{" "}
+            <div
+              onClick={() => {
+                navigate("/question");
+              }}
+            >
+              질문
+            </div>
+          </Gnb>
+          <div>
+            <input placeholder="키워드 검색"></input>
+            <button>검색</button>
+          </div>
+        </Nav>
+      </Layout>
+      {/* <List /> */}
+    </>
   );
 }
 
 export default Detail;
+
+const Nav = styled.div`
+  display: flex;
+  justify-content: space-between;
+  > div > button {
+    margin-left: 15px;
+  }
+`;
+
+const Gnb = styled.div`
+  width: 400px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 20px;
+
+  div {
+    width: 100px;
+    text-align: center;
+    cursor: pointer;
+  }
+  div:hover {
+    background-color: darkgray;
+  }
+`;

@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Detail from "../pages/detail/Detail";
 import Members from "../pages/members/Members";
-import MembersModify from "../pages/members/memgersModity";
+import MembersModify from "../pages/members/MembersModify";
 import Mypage from "../pages/mypage/Mypage";
 import Main from "../pages/post/Main";
 import Modify from "../pages/post/Modify";

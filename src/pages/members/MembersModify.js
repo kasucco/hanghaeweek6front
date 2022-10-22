@@ -2,16 +2,26 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { AcyncCreateMember, AcyncGetMember } from "./membersSlice";
+import { AcyncUpdateMember, AcyncGetMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import * as MB from "./membersCSS";
+import useInput from "../../shared/useInput";
 
-function Members() {
+function MembersModify() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(AcyncGetMember());
+  }, [dispatch]);
+  const globalmembers = useSelector((state) => state.members.member);
+  console.log(globalmembers);
+  const [inputs, changeHandle] = useInput(globalmembers);
+  console.log(inputs);
+
   const [account, setAccount] = useState({
     id: "",
     nickname: "",
@@ -19,14 +29,8 @@ function Members() {
     passwordConfirm: "",
   });
 
-  const onAddHandler = (account) => {
-    dispatch(AcyncCreateMember(account));
-
-    // navigate("/");
-  };
-
-  const onLoginHandler = () => {
-    dispatch(AcyncGetMember());
+  const onModifyHandler = (account) => {
+    dispatch(AcyncUpdateMember(account));
 
     // navigate("/");
   };
@@ -38,11 +42,11 @@ function Members() {
   return (
     <Layout>
       <MB.StContainer>
-        <MB.StTitle>회원가입</MB.StTitle>
+        <MB.StTitle>회원정보 수정하기</MB.StTitle>
         <MB.Stform
           onSubmit={(event) => {
-            // event.preventDefault();
-            // onAddHandler(account);
+            event.preventDefault();
+            onModifyHandler(account);
           }}
         >
           <MB.Stwrap>
@@ -61,13 +65,9 @@ function Members() {
               })}
               minLength="3"
               type="text"
-              onChange={(ev) => {
-                const { value } = ev.target;
-                setAccount({
-                  ...account,
-                  id: value,
-                });
-              }}
+              name="id"
+              value={inputs.id}
+              onChange={changeHandle}
             />
             <MB.Warn>{errors?.author?.message}</MB.Warn>
           </MB.Stwrap>
@@ -151,11 +151,8 @@ function Members() {
             />
             <MB.Warn>{errors?.body?.message}</MB.Warn>
           </MB.Stwrap>
-          <Button onClick={onAddHandler} size="lg">
-            가입하기
-          </Button>
-          <Button onClick={onLoginHandler} size="lg">
-            로그인하기
+          <Button onClick={onModifyHandler} size="lg">
+            회원정보수정하기
           </Button>
         </MB.Stform>
       </MB.StContainer>
@@ -163,4 +160,4 @@ function Members() {
   );
 }
 
-export default Members;
+export default MembersModify;

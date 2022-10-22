@@ -1,20 +1,31 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { membersApi } from "../../shared/Instance";
 
 const initialState = {
-  reviews: [],
-  isLoading: false,
-  error: null,
-  review: {},
+  members: [
+    {
+      id: "",
+      nickname: "",
+      password: "",
+      passwordConfirm: "",
+    },
+  ],
+  member: {
+    id: "",
+    nickname: "",
+    password: "",
+    passwordConfirm: "",
+  },
 };
+
 const url = process.env.REACT_APP_URL1;
 
-export const __getReviews = createAsyncThunk(
-  "book/getReviews",
+export const AcyncGetMember = createAsyncThunk(
+  "members/getMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(url);
-
+      const data = await membersApi.getMember();
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -22,11 +33,12 @@ export const __getReviews = createAsyncThunk(
   }
 );
 
-export const __getReviewOne = createAsyncThunk(
-  "book/getReviewOne",
+export const AcyncCreateMember = createAsyncThunk(
+  "members/createMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.get(url`/${payload}`);
+      const data = await membersApi.creatMember(payload);
+      console.log(data);
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -34,20 +46,8 @@ export const __getReviewOne = createAsyncThunk(
     }
   }
 );
-
-export const __createReviews = createAsyncThunk(
-  "book/createReviews",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.post(url, payload);
-      return thunkAPI.fulfillWithValue(data.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-export const __deleteReviews = createAsyncThunk(
-  "book/deleteReviews",
+export const AcyncDeleteMember = createAsyncThunk(
+  "members/deleteMember",
   async (payload, thunkAPI) => {
     try {
       await axios.delete(url + `/${payload}`);
@@ -58,8 +58,8 @@ export const __deleteReviews = createAsyncThunk(
   }
 );
 
-export const __updateReviews = createAsyncThunk(
-  "book/updateReviews",
+export const AcyncUpdateMember = createAsyncThunk(
+  "members/updateMember",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.patch(url + `/${payload.id}`, payload);
@@ -71,14 +71,14 @@ export const __updateReviews = createAsyncThunk(
   }
 );
 
-const bookSlice = createSlice({
-  name: "book",
+const membersSlice = createSlice({
+  name: "members",
   initialState,
   reducers: {
-    addReview: (state, action) => {
+    addmember: (state, action) => {
       return {
         ...state,
-        reviews: [action.payload, ...state.reviews],
+        members: [action.payload, ...state.members],
       };
     },
     deleteReview: (state, action) => {
@@ -97,28 +97,23 @@ const bookSlice = createSlice({
     },
   },
   extraReducers: {
-    [__getReviews.pending]: (state) => {
-      state.isLoading = true; // 네트워크 요청이 시작되면 로딩상태를 true로 변경합니다.
-    },
-    [__getReviews.fulfilled]: (state, action) => {
+    [AcyncGetMember.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.reviews = action.payload;
+      state.review = action.payload;
+      console.log(action.payload);
     },
-    [__getReviews.rejected]: (state, action) => {
-      state.isLoading = false; // 에러가 발생했지만, 네트워크 요청이 끝났으니, false로 변경합니다.
-      state.error = action.payload; // catch 된 error 객체를 state.error에 넣습니다.
-    },
-    [__createReviews.fulfilled]: (state, { payload }) => {
+    [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.reviews.push(payload);
+      state.members.push(payload);
+      console.log("paylaod", payload);
     },
-    [__deleteReviews.fulfilled]: (state, { payload }) => {
+    [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
       state.reviews = state.reviews.filter((item) => {
         return item.id !== payload;
       });
     },
-    [__updateReviews.fulfilled]: (state, { payload }) => {
+    [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
       state.reviews.forEach((element) => {
         if (element.id === payload.id) {
@@ -127,14 +122,10 @@ const bookSlice = createSlice({
         } else return element;
       });
     },
-    [__getReviewOne.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.review = action.payload;
-    },
   },
 });
 
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
-export const { addReview, deleteReview, selectReview } = bookSlice.actions;
+export const { addReview, deleteReview, selectReview } = membersSlice.actions;
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
-export default bookSlice.reducer;
+export default membersSlice.reducer;
