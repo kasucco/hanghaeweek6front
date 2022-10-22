@@ -4,11 +4,7 @@ import Layout from "../../shared/Layout";
 
 function Form() {
   console.log("폼페이지");
-  return (
-    <Layout>
-      <div></div>
-    </Layout>
-  );
+  return <Layout></Layout>;
 }
 
 export default Form;
