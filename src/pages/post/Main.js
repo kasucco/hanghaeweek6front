@@ -1,3 +1,4 @@
+
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
@@ -24,6 +25,7 @@ function Main() {
   if (error) {
     return <div>{error.message}</div>
   }
+
   return <>
     <Layout>
       <Nav>
@@ -77,6 +79,7 @@ div:hover{
   background-color: darkgray;
 }
 `
+
 const List = styled.div`
 width: 1200px;
 margin: 30px auto;
@@ -85,5 +88,6 @@ box-sizing: border-box;
 border-radius: 10px;
 background-color: #DEB887;
 ;
-`
+
+
 
