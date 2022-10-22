@@ -10,7 +10,6 @@ import Question from "../../commponents/Question";
 
 function Main() {
   const [content, setContent] = useState()
-
   const handleClickButton = (e) => {
     const { name } = e.target;
     setContent(name);
@@ -25,9 +24,9 @@ function Main() {
     question: <Question />,
   }
   useEffect(() => {
-    setContent(selectComponent.code)
+    setContent("code")
   }, []);
-  console.log(content)
+  console.log()
   //버튼을 누른 후 렌더링 시킬 때 selectComponent 변수의 값에 담긴 객체의 key값을 이용하여 
   //렌더링시킨다.
 
@@ -72,14 +71,14 @@ function Main() {
       </Layout>
       {content && <List>{selectComponent[content]}</List>}
 
-      {/* <List>
+      <List>
         <div>
           <h2>코드👾</h2>
           {posts.map(
             (post) => <Code key={post.id} postsData={post} />
           )}
         </div>
-      </List> */}
+      </List>
     </>
   );
 }
