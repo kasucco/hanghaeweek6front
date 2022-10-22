@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { __getReview } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import Button from "../element/button";
+import Button from "../../shared/Button";
 import { useState } from "react";
 
 function Members() {
@@ -17,10 +17,10 @@ function Members() {
     passwordConfirm: "",
   });
 
-  const onAddHandler = (movie) => {
-    dispatch(__getReview(movie));
-    navigate("/moviepage");
-  };
+  // const onAddHandler = (movie) => {
+  //   dispatch(__getReview(movie));
+  //   navigate("/moviepage");
+  // };
 
   const {
     register,
@@ -32,8 +32,8 @@ function Members() {
         <StTitle>결심을 작성해주세요!🔥</StTitle>
         <Stform
           onSubmit={(event) => {
-            event.preventDefault();
-            onAddHandler(account);
+            // event.preventDefault();
+            // onAddHandler(account);
           }}
         >
           <Stwrap>
