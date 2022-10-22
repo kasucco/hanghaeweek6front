@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-const Error = () => {
+const Error = (postsData) => {
     return (
         <ErrorBox>
             <div>
-                <span>이름</span>
-                <div>제목</div>
-                <div>코드내용</div>
+                <span>{postsData?.id}</span>
+                <div>{postsData?.title}</div>
+                <div>{postsData?.body}</div>
             </div>
         </ErrorBox>
     )
@@ -15,9 +15,11 @@ const Error = () => {
 export default Error;
 
 const ErrorBox = styled.div`
-width: 100%;
+width: 90%;
 height: 200px;
-border: 1px solid black;
-margin-top: 20px;
+margin: 20px auto;
+border: 2px solid black;
 border-radius: 10px;
+margin-top: 20px;
+background-color: white;
 `

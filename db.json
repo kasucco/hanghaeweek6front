@@ -1,0 +1,51 @@
+{
+    "posts": [
+      {
+        "id": 1,
+        "author": "작성자",
+        "title": "제목",
+        "body": "내용",
+        "isDone": false,
+        "name": "code"
+      },
+      {
+        "id": 2,
+        "author": "작성자",
+        "title": "제목",
+        "body": "내용",
+        "isDone": false,
+        "name": "error"
+      },
+      {
+        "id": 3,
+        "author": "작성자",
+        "title": "제목",
+        "body": "내용",
+        "isDone": false,
+        "name": "chat"
+      },
+      {
+        "id": 4,
+        "author": "작성자",
+        "title": "제목",
+        "body": "내용",
+        "isDone": false,
+        "name": "question"
+      }
+    ],
+    "comments": [
+      {
+        "id": 1,
+        "movieId": "2",
+        "commentAuthor": "독캣",
+        "commentBody": ""
+      },
+      {
+        "id": 2,
+        "movieId": "2",
+        "commentAuthor": "정원지",
+        "commentBody": "재밌다"
+      }
+    ]
+  }
+  
