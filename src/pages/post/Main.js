@@ -4,40 +4,28 @@ import Layout from "../../shared/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
 import Code from "../../commponents/Code";
-import Chat from "../../commponents/Chat";
-import Error from "../../commponents/Error";
-import Question from "../../commponents/Question";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
-  const [content, setContent] = useState()
+  const navigate = useNavigate();
+  const [content, setContent] = useState();
+
   const handleClickButton = (e) => {
     const { name } = e.target;
     setContent(name);
   };
-  //버튼을 누르면 해당 함수를 실행하며 버튼을 눌렸을때 map()함수로 돌린 data.name을 name에 할당하여
-  // 이벤트 메소드를 이용하여 name값을 담는다. 그리고 나서 setContent에 name을 담고 content에 담는다.
 
-  const selectComponent = {
-    code: <Code />,
-    error: <Error />,
-    chat: <Chat />,
-    question: <Question />,
-  }
   useEffect(() => {
-    setContent("code")
+    setContent("code");
   }, []);
-  console.log()
-  //버튼을 누른 후 렌더링 시킬 때 selectComponent 변수의 값에 담긴 객체의 key값을 이용하여 
-  //렌더링시킨다.
-
-
+  console.log("content", content);
   const dispatch = useDispatch();
-  const { isLoading, error, posts } = useSelector((state) => state.posts);
-  console.log(posts);
-
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
+
+  const { isLoading, error, posts } = useSelector((state) => state.posts);
+  console.log("posts", posts);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -46,22 +34,23 @@ function Main() {
     return <div>{error.message}</div>;
   }
 
-
-
   return (
     <>
       <Layout>
         <Nav>
           <Gnb>
-            {
-              posts.map((data) => {
-                return (
-                  <button onClick={handleClickButton} name={data.name} key={data.id}>
-                    {data.title}
-                  </button>
-                );
-              })
-            }
+            <button onClick={handleClickButton} name="code">
+              코드
+            </button>
+            <button onClick={handleClickButton} name="error">
+              에러
+            </button>
+            <button onClick={handleClickButton} name="chat">
+              잡담
+            </button>
+            <button onClick={handleClickButton} name="question">
+              질문
+            </button>
           </Gnb>
           <div>
             <input placeholder="키워드 검색"></input>
@@ -69,14 +58,26 @@ function Main() {
           </div>
         </Nav>
       </Layout>
-      {content && <List>{selectComponent[content]}</List>}
 
       <List>
         <div>
-          <h2>코드👾</h2>
-          {posts.map(
-            (post) => <Code key={post.id} postsData={post} />
-          )}
+          <div>
+            {" "}
+            {content == "code" ? (
+              <h2>코드👾</h2>
+            ) : content == "error" ? (
+              <h2>에러👾</h2>
+            ) : content == "chat" ? (
+              <h2>잡담👾</h2>
+            ) : (
+              <h2>질문👾</h2>
+            )}{" "}
+          </div>
+          {posts.map((post) => {
+            if (content === post.name) {
+              return <Code key={post.id} postsData={post} />;
+            }
+          })}
         </div>
       </List>
     </>
@@ -117,5 +118,7 @@ const List = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   background-color: #deb887;
-  h2{text-align: center}
+  h2 {
+    text-align: center;
+  }
 `;

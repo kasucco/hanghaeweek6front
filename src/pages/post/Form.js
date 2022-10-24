@@ -93,6 +93,7 @@ const Titleinput = styled.input`
   background: transparent;
   border-radius: 10px;
   border: 1px solid #666;
+  background-color: white;
 `;
 
 const Contentinput = styled.textarea`
@@ -102,6 +103,7 @@ const Contentinput = styled.textarea`
   border-radius: 10px;
   border: 1px solid #666;
   resize: none;
+  background-color: white;
 `;
 
 const Buttonbox = styled.div`

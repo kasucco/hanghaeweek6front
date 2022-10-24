@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useNavigate } from "react-router-dom";
+import Comment from "../detail/Comment";
 
 function Detail() {
   const navigate = useNavigate();
@@ -46,7 +47,10 @@ function Detail() {
           </div>
         </Nav>
       </Layout>
-      {/* <List /> */}
+      <List>
+        <div>상세 페이지입니다</div>
+        <Comment />
+      </List>
     </>
   );
 }
@@ -75,4 +79,10 @@ const Gnb = styled.div`
   div:hover {
     background-color: darkgray;
   }
+`;
+const List = styled.div`
+  width: 1200px;
+  height: 550px;
+  margin: 30px auto;
+  border: 3px solid black;
 `;
