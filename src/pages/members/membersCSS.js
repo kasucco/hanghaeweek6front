@@ -28,8 +28,8 @@ margin: 0.5rem 0 0.8rem;
 
 const Stform = styled.form`
   border-radius: 20px;
-  border: 5px solid cadetblue;
-  background-color: #def1ef;
+  border: 5px solid rgb(150, 105, 47);
+  background-color: rgb(255, 241, 223);
   min-width: 400px;
   min-height: 600px;
   padding: 40px 15px 20px 15px;
@@ -44,16 +44,17 @@ transform: translate(-50%, -50%); */
 `;
 
 const Stinputs = styled.input`
-  font-family: "ghanachoco";
+  font-family: "SeoulHangangM";
   padding-left: 10px;
-  border: 1px solid #eee;
+  border: 1px solid rgb(150, 105, 47);
   height: 40px;
   width: 300px;
   border-radius: 12;
 `;
 
 const StTitle = styled.div`
-  border: 1px solid gray;
+  font-size: x-large;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +63,6 @@ const StTitle = styled.div`
 
 const Stlabel = styled.div`
   font-size: large;
-  border: 1px solid gray;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,7 +70,6 @@ const Stlabel = styled.div`
 `;
 
 const Stwrap = styled.div`
-  border: 1px solid gray;
   display: flex;
   flex-direction: column;
   align-items: center;
