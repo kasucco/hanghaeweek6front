@@ -1,5 +1,6 @@
 import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { postsApi } from "../../shared/Instance";
 
 const initialState = {
   posts: [],
@@ -21,18 +22,18 @@ export const __getPosts = createAsyncThunk(
   }
 );
 
-// export const acyncGetPostsCopy = createAsyncThunk(
-//   "posts/getPosts",
-//   async (payload, thunkAPI) => {
-//     console.log(payload);
-//     try {
-//       const data = await axios.get("http://localhost:3001/posts", payload);
-//       return thunkAPI.fulfillWithValue(data.data);
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
+export const acyncCreatePosts = createAsyncThunk(
+  "posts/createPosts",
+  async (payload, thunkAPI) => {
+    console.log(payload);
+    try {
+      const data = await postsApi.creatPost(payload);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
 
 const PostsSlice = createSlice({
   name: "posts",
@@ -50,12 +51,10 @@ const PostsSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload;
     },
-    // [acyncGetPostsCopy.fulfilled]: (state, action) => {
-    //   state.isLoading = false;
-    //   state.post = state.posts.filter(
-    //     (posts) => posts.categoryId == action.payload
-    //   );
-    // },
+    [acyncCreatePosts.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.posts = action.payload;
+    },
   },
 });
 

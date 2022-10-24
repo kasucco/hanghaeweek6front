@@ -25,12 +25,13 @@ const initialState = {
 
 const url = process.env.REACT_APP_URL1;
 
-export const AcyncPostMember = createAsyncThunk(
-  "members/postMember",
+export const AcyncLoginMember = createAsyncThunk(
+  "members/loginMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await membersApi.postMember(payload);
-      console.log("getDate", data.data);
+      const data = await membersApi.loginMember(payload);
+      console.log("login", data.data.data);
+      localStorage.setItem("token", data.data.data.token);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -101,9 +102,9 @@ const membersSlice = createSlice({
     },
   },
   extraReducers: {
-    [AcyncPostMember.fulfilled]: (state, action) => {
+    [AcyncLoginMember.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.member = action.payload;
+      state.members.login.push(payload);
     },
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
