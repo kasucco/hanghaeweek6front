@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { AcyncCreateMember, AcyncPostMember } from "./membersSlice";
+import { AcyncCreateMember, AcyncLoginMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
@@ -10,7 +10,7 @@ import { useState } from "react";
 import * as MB from "./membersCSS";
 import { isAsyncThunkAction } from "@reduxjs/toolkit";
 
-function Members() {
+function MembersSignup() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [account, setAccount] = useState({
@@ -23,11 +23,11 @@ function Members() {
   const onAddHandler = () => {
     dispatch(AcyncCreateMember(account));
 
-    // navigate("/");
+    navigate("/members/login");
   };
 
   const onLoginHandler = () => {
-    dispatch(AcyncPostMember());
+    dispatch(AcyncLoginMember());
 
     // navigate("/");
   };
@@ -155,13 +155,10 @@ function Members() {
           <Button onClick={onAddHandler} size="lg">
             가입하기
           </Button>
-          <Button onClick={onLoginHandler} size="lg">
-            로그인하기
-          </Button>
         </MB.Stform>
       </MB.StContainer>
     </Layout>
   );
 }
 
-export default Members;
+export default MembersSignup;

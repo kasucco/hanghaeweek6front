@@ -9,7 +9,7 @@ import Error from "../../commponents/Error";
 import Question from "../../commponents/Question";
 
 function Main() {
-  const [content, setContent] = useState()
+  const [content, setContent] = useState();
 
   const handleClickButton = (e) => {
     const { name } = e.target;
@@ -23,18 +23,16 @@ function Main() {
     error: <Error />,
     chat: <Chat />,
     question: <Question />,
-  }
+  };
   useEffect(() => {
-    setContent(selectComponent.code)
+    setContent(selectComponent.code);
   }, []);
-  console.log(content)
-  //버튼을 누른 후 렌더링 시킬 때 selectComponent 변수의 값에 담긴 객체의 key값을 이용하여 
-  //렌더링시킨다.
 
+  //버튼을 누른 후 렌더링 시킬 때 selectComponent 변수의 값에 담긴 객체의 key값을 이용하여
+  //렌더링시킨다.
 
   const dispatch = useDispatch();
   const { isLoading, error, posts } = useSelector((state) => state.posts);
-  console.log(posts);
 
   useEffect(() => {
     dispatch(__getPosts());
@@ -47,22 +45,22 @@ function Main() {
     return <div>{error.message}</div>;
   }
 
-
-
   return (
     <>
       <Layout>
         <Nav>
           <Gnb>
-            {
-              posts.map((data) => {
-                return (
-                  <button onClick={handleClickButton} name={data.name} key={data.id}>
-                    {data.title}
-                  </button>
-                );
-              })
-            }
+            {posts.map((data) => {
+              return (
+                <button
+                  onClick={handleClickButton}
+                  name={data.name}
+                  key={data.id}
+                >
+                  {data.title}
+                </button>
+              );
+            })}
           </Gnb>
           <div>
             <input placeholder="키워드 검색"></input>
@@ -118,5 +116,7 @@ const List = styled.div`
   box-sizing: border-box;
   border-radius: 10px;
   background-color: #deb887;
-  h2{text-align: center}
+  h2 {
+    text-align: center;
+  }
 `;

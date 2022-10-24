@@ -37,7 +37,8 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  background-color: #DEB887;
+  background-color: #deb887;
+  border-radius: 10px;
 `;
 
 const InnerHead = styled.div`
@@ -55,10 +56,10 @@ const HeadH1 = styled.h1`
 
 const HeadP = styled.p`
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 1000;
 `;
 
 const Login = styled.div`
   display: flex;
   align-items: center;
-`
+`;

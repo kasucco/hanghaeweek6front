@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { AcyncUpdateMember, AcyncPostMember } from "./membersSlice";
+import { AcyncUpdateMember, AcyncLoginMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
@@ -15,7 +15,7 @@ function MembersModify() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   useEffect(() => {
-    dispatch(AcyncPostMember());
+    dispatch(AcyncLoginMember());
   }, [dispatch]);
   const globalmembers = useSelector((state) => state.members.member);
   console.log(globalmembers);
