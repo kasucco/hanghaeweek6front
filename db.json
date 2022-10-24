@@ -3,32 +3,32 @@
       {
         "id": 1,
         "author": "작성자",
-        "title": "제목",
-        "body": "내용",
+        "title": "코드제목",
+        "body": "코드내용",
         "isDone": false,
         "name": "code"
       },
       {
         "id": 2,
         "author": "작성자",
-        "title": "제목",
-        "body": "내용",
+        "title": "에러제목",
+        "body": "에러내용",
         "isDone": false,
         "name": "error"
       },
       {
         "id": 3,
         "author": "작성자",
-        "title": "제목",
-        "body": "내용",
+        "title": "잡담제목",
+        "body": "잡담내용",
         "isDone": false,
         "name": "chat"
       },
       {
         "id": 4,
         "author": "작성자",
-        "title": "제목",
-        "body": "내용",
+        "title": "질문제목",
+        "body": "질문내용",
         "isDone": false,
         "name": "question"
       }
