@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
 
 const Code = ({ postsData, detailPostData }) => {
   const navigate = useNavigate();

@@ -34,54 +34,19 @@ function Detail() {
   return (
     <>
       <Layout>
-        <Nav>
-          <Gnb>
-            <button onClick={handleClickButton} name="코드">
-              코드
-            </button>
-            <button onClick={handleClickButton} name="에러">
-              에러
-            </button>
-            <button onClick={handleClickButton} name="잡담">
-              잡담
-            </button>
-            <button onClick={handleClickButton} name="질문">
-              질문
-            </button>
-          </Gnb>
-          <div>
-            <input placeholder="키워드 검색"></input>
-            <button>검색</button>
-          </div>
-        </Nav>
+        <Content>상세페이지입니다.</Content>
+        <Comment></Comment>
       </Layout>
-      {/* <List /> */}
     </>
   );
 }
 
 export default Detail;
 
-const Nav = styled.div`
-  display: flex;
-  justify-content: space-between;
-  > div > button {
-    margin-left: 15px;
-  }
-`;
-
-const Gnb = styled.div`
-  width: 400px;
-  display: flex;
-  justify-content: space-around;
-  font-size: 20px;
-
-  div {
-    width: 100px;
-    text-align: center;
-    cursor: pointer;
-  }
-  div:hover {
-    background-color: darkgray;
-  }
+const Content = styled.div`
+  width: 90%;
+  height: 600px;
+  margin: 0 auto;
+  background-color: white;
+  border: 1px solid black;
 `;

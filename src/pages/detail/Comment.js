@@ -46,7 +46,7 @@ const Comment = () => {
             setOpen((open) => !open);
           }}
         >
-          {open ? "눌러서 댓글 내리기" : "눌러서 댓글 보기"}
+          {open ? "댓글 내리기 click!" : "댓글 보기 click!"}
         </div>
         <div>
           <Btnbox>

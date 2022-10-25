@@ -19,7 +19,7 @@ function Main() {
   };
 
   useEffect(() => {
-    setContent("code");
+    setContent("코드");
   }, []);
   console.log("content", content);
 
