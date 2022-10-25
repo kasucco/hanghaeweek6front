@@ -2,13 +2,12 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { AcyncCreateMember, AcyncLoginMember } from "./membersSlice";
+import { AcyncLoginMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
 import { useState } from "react";
 import * as MB from "./membersCSS";
-import { isAsyncThunkAction } from "@reduxjs/toolkit";
 
 function MembersLogin() {
   const dispatch = useDispatch();
@@ -20,6 +19,7 @@ function MembersLogin() {
 
   const onLoginHandler = () => {
     dispatch(AcyncLoginMember(account));
+    navigate(`/members/login/${account.id}`);
   };
 
   const {

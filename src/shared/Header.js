@@ -19,7 +19,30 @@ function Header() {
           {/* {
             .isDone ? <button>로그아웃</button> : <button>로그인</button>
           } */}
-          <button>작성하기</button>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/mypage");
+            }}
+          >
+            마이페이지
+          </button>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/members/login");
+            }}
+          >
+            로그인/회원가입
+          </button>
+          <button
+            onClick={(event) => {
+              event.stopPropagation();
+              navigate("/form");
+            }}
+          >
+            작성하기
+          </button>
         </Login>
       </InnerHead>
     </Head>

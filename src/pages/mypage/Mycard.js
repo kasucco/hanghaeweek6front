@@ -64,7 +64,7 @@ const MyBox = styled.div`
 
 const TextSize = styled.h1`
   font-size: 20px;
-  width: 200px;
+  width: 180px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

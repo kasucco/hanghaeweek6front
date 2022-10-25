@@ -12,7 +12,7 @@ import { acyncCreatePosts } from "./postSlice";
 function Form() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const token = sessionStorage.getItem("token");
   const [child, setChild] = useState();
 
   const parentsFunction = (e) => {
@@ -103,7 +103,6 @@ function Form() {
       </Buttonbox>
     </Layout>
   );
-
 }
 export default Form;
 
