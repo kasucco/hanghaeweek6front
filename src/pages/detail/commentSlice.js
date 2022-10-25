@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { commentsApi } from "../../shared/Instance";
 
 const initialState = {
   comments: [],
@@ -8,10 +9,10 @@ const initialState = {
 };
 
 export const __getComments = createAsyncThunk(
-  "getComments",
+  "posts/getComments",
   async (_, thunkAPI) => {
     try {
-      const data = await axios.get("52.79.218.57:3000/comments");
+      const data = await axios.get("http://52.79.218.57:3000/comments");
 
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -21,11 +22,11 @@ export const __getComments = createAsyncThunk(
 );
 
 export const __addComment = createAsyncThunk(
-  "addComment",
+  "posts/addComment",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      await axios.post(``, payload);
-      await axios.post(payload);
+      const data = await commentsApi.addComment(payload);
       return thunkAPI.fulfillWithValue(payload);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -34,11 +35,11 @@ export const __addComment = createAsyncThunk(
 );
 
 export const __getCommentById = createAsyncThunk(
-  "getComment",
+  "posts/getComment",
   async (payload, thunkAPI) => {
     try {
       const data = await axios.get(
-        `52.79.218.57:3000/comments?movieId=${payload}`
+        `http://52.79.218.57:3000/comments/${payload.postId}`
       );
 
       return thunkAPI.fulfillWithValue(data.data);
@@ -50,10 +51,10 @@ export const __getCommentById = createAsyncThunk(
 
 //삭제
 export const __deleteComment = createAsyncThunk(
-  "deleteComment",
+  "posts/deleteComment",
   async (payload, thunkAPI) => {
     try {
-      await axios.delete();
+      await commentsApi.deleteComment(payload);
 
       return thunkAPI.fulfillWithValue(payload);
     } catch (e) {
@@ -63,13 +64,11 @@ export const __deleteComment = createAsyncThunk(
 );
 
 export const __updateComment = createAsyncThunk(
-  "updateComment",
+  "posts/updateComment",
   async (payload, thunkAPI) => {
     try {
-      axios.patch(`52.79.218.57:3000/comments/${payload.commentId}`, {
-        commentBody: payload.input,
-      });
-
+      const data = await commentsApi.updateComment(payload);
+      // {commentBody: payload.input,}
       return thunkAPI.fulfillWithValue(payload);
     } catch (e) {
       return thunkAPI.rejectWithValue(e);

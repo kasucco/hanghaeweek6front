@@ -28,8 +28,10 @@ const url = process.env.REACT_APP_URL1;
 export const AcyncLoginMember = createAsyncThunk(
   "members/loginMember",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       const data = await membersApi.loginMember(payload);
+      console.log(data);
       sessionStorage.setItem("token", data.data.data.token);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
@@ -116,33 +118,18 @@ const membersSlice = createSlice({
   extraReducers: {
     [AcyncLoginMember.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
-      state.members.login.push(payload);
-      console.log(state.members.login);
     },
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members.signup.push(payload);
     },
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members = state.members.filter((item) => {
-        return item.id !== payload;
-      });
     },
     [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members.forEach((element) => {
-        if (element.id === payload.id) {
-          element.password = payload.password;
-          element.confirm = payload.confirm;
-        } else return null;
-      });
     },
     [AcyncGetMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-
-      state.members.login.push(payload);
     },
   },
 });

@@ -6,17 +6,20 @@ import { __addComment } from "../detail/commentSlice";
 import Comments from "./Comments";
 import { __getComments } from "../detail/commentSlice";
 import { useSelector } from "react-redux";
+import guid from "../../shared/difficultnumber";
 
 const Comment = () => {
   const { id } = useParams();
+  console.log(id);
   const [open, setOpen] = useState();
   const dispatch = useDispatch();
 
   const initialState = {
     id: 0,
-    movieId: id,
+    postId: id,
+    level: 1,
     commentAuthor: "",
-    commentBody: "",
+    comment: "",
   };
   const [comment, setComment] = useState(initialState);
   const { isLoading, error, comments } = useSelector((state) => state.comments);
@@ -69,14 +72,14 @@ const Comment = () => {
                 }}
               />
               <input
-                value={comment.commentBody}
+                value={comment.comment}
                 type="text"
                 placeholder="내용"
                 onChange={(e) => {
                   const { value } = e.target;
                   setComment({
                     ...comment,
-                    commentBody: value,
+                    comment: value,
                   });
                 }}
               />
@@ -84,8 +87,8 @@ const Comment = () => {
             </form>
           </Btnbox>
           {comments.map((comment) => (
-            <div key={comment.id}>
-              {+id === +comment.movieId ? <Comments comment={comment} /> : null}
+            <div key={guid()}>
+              {+id === +comment.postId ? <Comments comment={comment} /> : null}
             </div>
           ))}
         </div>

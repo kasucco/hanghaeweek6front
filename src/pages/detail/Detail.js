@@ -3,7 +3,6 @@ import Layout from "../../shared/Layout";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
-import Code from "../../commponents/Code";
 import { useParams } from "react-router-dom";
 import Comment from "../detail/Comment";
 
@@ -35,7 +34,7 @@ function Detail() {
     <>
       <Layout>
         <Content>상세페이지입니다.</Content>
-        <Comment></Comment>
+        <Comment />
       </Layout>
     </>
   );
