@@ -4,9 +4,14 @@ import Layout from "../../shared/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
 import Code from "../../commponents/Code";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Main() {
-  const [content, setContent] = useState();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [content, setContent] = useState("코드");
+  const { isLoading, error } = useSelector((state) => state.posts);
+  const { findAllPost } = useSelector((state) => state.posts.findAllPost);
 
   const handleClickButton = (e) => {
     const { name } = e.target;
@@ -14,17 +19,10 @@ function Main() {
   };
   //버튼을 누르면 해당 함수를 실행하며 버튼을 눌렸을때 map()함수로 돌린 data.name을 name에 할당하여
   // 이벤트 메소드를 이용하여 name값을 담는다. 그리고 나서 setContent에 name을 담고 content에 담는다.
-  useEffect(() => {
-    setContent("code");
-  }, []);
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(__getPosts());
   }, [dispatch]);
-
-  const { isLoading, error, posts } = useSelector((state) => state.posts);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -38,30 +36,18 @@ function Main() {
       <Layout>
         <Nav>
           <Gnb>
-            <button onClick={handleClickButton} name="code">
+            <button onClick={() => navigate("/")} name="코드">
               코드
             </button>
-            <button onClick={handleClickButton} name="error">
+            <button onClick={handleClickButton} name="에러">
               에러
             </button>
-            <button onClick={handleClickButton} name="chat">
+            <button onClick={handleClickButton} name="잡담">
               잡담
             </button>
-            <button onClick={handleClickButton} name="question">
+            <button onClick={handleClickButton} name="질문">
               질문
             </button>
-
-            {posts.map((data) => {
-              return (
-                <button
-                  onClick={handleClickButton}
-                  name={data.name}
-                  key={data.id}
-                >
-                  {data.title}
-                </button>
-              );
-            })}
           </Gnb>
           <div>
             <input placeholder="키워드 검색"></input>
@@ -74,21 +60,24 @@ function Main() {
         <div>
           <div>
             {" "}
-            {content == "code" ? (
+            {content == "코드" ? (
               <h2>코드👾</h2>
-            ) : content == "error" ? (
+            ) : content == "에러" ? (
               <h2>에러👾</h2>
-            ) : content == "chat" ? (
+            ) : content == "잡담" ? (
               <h2>잡담👾</h2>
             ) : (
               <h2>질문👾</h2>
             )}{" "}
           </div>
-          {posts.map((post) => {
-            if (content === post.name) {
-              return <Code key={post.id} postsData={post} />;
-            }
-          })}
+          {findAllPost &&
+            findAllPost.map((post) => {
+              console.log(post, content);
+
+              if (content == post.name) {
+                return <Code key={post.postId} postsData={post} />;
+              } else return null;
+            })}
         </div>
       </List>
     </>

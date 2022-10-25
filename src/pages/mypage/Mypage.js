@@ -3,52 +3,52 @@ import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { Navigate, useNavigate } from "react-router-dom";
 import Mycard from "./Mycard";
+import { useDispatch } from "react-redux";
+import { AcyncDeleteMember } from "../members/membersSlice";
 
 function Mypage() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  // const useConfirm = (message = "", onConfirm, onCancel) => {
+  //   if (onConfirm && typeof onConfirm !== "function") {
+  //     return;
+  //   }
+
+  //   if (onCancel && typeof onCancel !== "function") {
+  //     return;
+  //   }
+
+  //   const confirmAction = () => {
+  //     if (confirm(message)) {
+  //       onConfirm();
+  //     } else {
+  //       onCancel();
+  //     }
+  //   };
+  //   return confirmAction;
+  // };
+  // const deleteAccount = useConfirm("탈퇴하시겠습니까",confirmDelete)
+  // const confirmDelete = () => {}
+  const deleteAccount = () => {
+    dispatch(AcyncDeleteMember());
+  };
 
   return (
     <>
       <Layout>
-        <Nav>
-          <Gnb>
-            <div
-              onClick={() => {
-                navigate("/code");
-              }}
-            >
-              코드
-            </div>
-            <div
-              onClick={() => {
-                navigate("/error");
-              }}
-            >
-              에러
-            </div>{" "}
-            <div
-              onClick={() => {
-                navigate("/chat");
-              }}
-            >
-              잡담
-            </div>{" "}
-            <div
-              onClick={() => {
-                navigate("/question");
-              }}
-            >
-              질문
-            </div>
-          </Gnb>
-          <div>
-            <input placeholder="키워드 검색"></input>
-            <button>검색</button>
-          </div>
-        </Nav>
+        <button onClick={() => navigate("/membersmodify")}>
+          회원정보 수정하기
+        </button>
+        <button
+          // onClick={() => deleteAccount()}
+          onClick={() => {
+            deleteAccount();
+          }}
+        >
+          회원 삭제하기
+        </button>
+        <Mycard />
       </Layout>
-
-      <Mycard />
     </>
   );
 }

@@ -30,8 +30,7 @@ export const AcyncLoginMember = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await membersApi.loginMember(payload);
-      console.log("login", data.data.data);
-      localStorage.setItem("token", data.data.data.token);
+      sessionStorage.setItem("token", data.data.data.token);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -76,6 +75,19 @@ export const AcyncUpdateMember = createAsyncThunk(
   }
 );
 
+export const AcyncGetMember = createAsyncThunk(
+  "members/getMember",
+  async (payload, thunkAPI) => {
+    try {
+      const data = await membersApi.getMember();
+      console.log(data.data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 const membersSlice = createSlice({
   name: "members",
   initialState,
@@ -104,33 +116,38 @@ const membersSlice = createSlice({
   extraReducers: {
     [AcyncLoginMember.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
+      console.log(payload);
       state.members.login.push(payload);
+      console.log(state.members.login);
     },
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-
       state.members.signup.push(payload);
-      console.log("paylaod", payload);
     },
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.reviews = state.reviews.filter((item) => {
+      state.members = state.members.filter((item) => {
         return item.id !== payload;
       });
     },
     [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.reviews.forEach((element) => {
+      state.members.forEach((element) => {
         if (element.id === payload.id) {
-          element.title = payload.title;
-          element.content = payload.content;
-        } else return element;
+          element.password = payload.password;
+          element.confirm = payload.confirm;
+        } else return null;
       });
+    },
+    [AcyncGetMember.fulfilled]: (state, { payload }) => {
+      state.isLoading = true;
+
+      state.members.login.push(payload);
     },
   },
 });
 
 // 액션크리에이터는 컴포넌트에서 사용하기 위해 export 하고
-export const { addReview, deleteReview, selectReview } = membersSlice.actions;
+
 // reducer 는 configStore에 등록하기 위해 export default 합니다.
 export default membersSlice.reducer;
