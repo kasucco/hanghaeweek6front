@@ -3,24 +3,7 @@ import axios from "axios";
 import { membersApi } from "../../shared/Instance";
 
 const initialState = {
-  members: {
-    signup: [
-      {
-        id: "signup",
-        nickname: "signup",
-        password: "signup",
-        confirm: "signup",
-      },
-    ],
-    login: [
-      {
-        id: "",
-        nickname: "",
-        password: "",
-        confirm: "",
-      },
-    ],
-  },
+  members: {},
 };
 
 const url = process.env.REACT_APP_URL1;
@@ -31,7 +14,7 @@ export const AcyncLoginMember = createAsyncThunk(
     try {
       const data = await membersApi.loginMember(payload);
       sessionStorage.setItem("token", data.data.data.token);
-      return thunkAPI.fulfillWithValue(data.data);
+      return payload;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -54,7 +37,8 @@ export const AcyncDeleteMember = createAsyncThunk(
   "members/deleteMember",
   async (payload, thunkAPI) => {
     try {
-      await axios.delete(url + `/${payload}`);
+      await membersApi.deleteMember();
+      sessionStorage.removeItem("token");
       return payload;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -66,7 +50,8 @@ export const AcyncUpdateMember = createAsyncThunk(
   "members/updateMember",
   async (payload, thunkAPI) => {
     try {
-      const data = await axios.patch(url + `/${payload.id}`, payload);
+      console.log("update", payload);
+      const data = await membersApi.updateMember(payload);
       console.log("수정하기", data, payload);
       return payload;
     } catch (error) {
@@ -80,7 +65,7 @@ export const AcyncGetMember = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await membersApi.getMember();
-      console.log(data.data);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -92,7 +77,7 @@ const membersSlice = createSlice({
   name: "members",
   initialState,
   reducers: {
-    addmember: (state, action) => {
+    readMember: (state, action) => {
       return {
         ...state,
         members: [action.payload, ...state.members],
@@ -116,33 +101,22 @@ const membersSlice = createSlice({
   extraReducers: {
     [AcyncLoginMember.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
+      state.members = payload;
       console.log(payload);
-      state.members.login.push(payload);
-      console.log(state.members.login);
     },
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members.signup.push(payload);
     },
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members = state.members.filter((item) => {
-        return item.id !== payload;
-      });
+      console.log("delete");
     },
     [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      state.members.forEach((element) => {
-        if (element.id === payload.id) {
-          element.password = payload.password;
-          element.confirm = payload.confirm;
-        } else return null;
-      });
     },
-    [AcyncGetMember.fulfilled]: (state, { payload }) => {
+    [AcyncGetMember.fulfilled]: (state) => {
       state.isLoading = true;
-
-      state.members.login.push(payload);
+      console.log("get");
     },
   },
 });
