@@ -4,12 +4,9 @@ import Layout from "../../shared/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
 import Code from "../../commponents/Code";
-import { useNavigate } from "react-router-dom";
 
 function Main() {
-  const navigate = useNavigate();
   const [content, setContent] = useState();
-
   const handleClickButton = (e) => {
     const { name } = e.target;
     setContent(name);

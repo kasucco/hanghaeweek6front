@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useState } from "react";
+import { __addComment } from "../detail/commentSlice";
+import Comments from "./Comments";
+import { __getComments } from "../detail/commentSlice";
+import { useSelector } from "react-redux";
 
-function Comment() {
-  const [open, setOpen] = useState(false);
+const Comment = () => {
+  const { id } = useParams();
+  const [open, setOpen] = useState();
+  const dispatch = useDispatch();
 
+  const initialState = {
+    id: 0,
+    movieId: id,
+    commentAuthor: "",
+    commentBody: "",
+  };
+  const [comment, setComment] = useState(initialState);
+  const { isLoading, error, comments } = useSelector((state) => state.comments);
+
+  useEffect(() => {
+    dispatch(__getComments());
+  }, [dispatch]);
+
+  if (isLoading) {
+    return <div> 로딩 중 ... </div>;
+  }
+
+  if (error) {
+    return <div> {error.message} </div>;
+  }
+
+  const commentOnsumitHandler = () => {
+    dispatch(__addComment(comment));
+    setComment(initialState);
+  };
   return (
     <>
       <Wrap open={open}>
@@ -14,31 +46,53 @@ function Comment() {
             setOpen((open) => !open);
           }}
         >
-          {open ? "댓글 닫기" : " 댓글 보기"}
+          {open ? "눌러서 댓글 내리기" : "눌러서 댓글 보기"}
         </div>
         <div>
           <Btnbox>
             <form
-            // onSubmit={(e) => {
-            //   e.preventDefault();
-            //   commentOnsumitHandler(comment);
-            // }}
+              onSubmit={(e) => {
+                e.preventDefault();
+                commentOnsumitHandler(comment);
+              }}
             >
-              <input type="text" placeholder="이름" />
-              <input type="text" placeholder="내용" />
-              <button>댓글 추가</button>
+              <input
+                value={comment.commentAuthor}
+                type="text"
+                placeholder="이름"
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setComment({
+                    ...comment,
+                    commentAuthor: value,
+                  });
+                }}
+              />
+              <input
+                value={comment.commentBody}
+                type="text"
+                placeholder="내용"
+                onChange={(e) => {
+                  const { value } = e.target;
+                  setComment({
+                    ...comment,
+                    commentBody: value,
+                  });
+                }}
+              />
+              <button>추가하기</button>
             </form>
           </Btnbox>
-          {/* {comments.map((comment) => (
+          {comments.map((comment) => (
             <div key={comment.id}>
               {+id === +comment.movieId ? <Comments comment={comment} /> : null}
             </div>
-          ))} */}
+          ))}
         </div>
       </Wrap>
     </>
   );
-}
+};
 
 export default Comment;
 
@@ -55,7 +109,6 @@ const Wrap = styled.div`
     position: fixed;
     width: 100%;
     background-color: #deb887;
-    border: 2px solid black;
     height: 30px;
     line-height: 30px;
     color: black;
@@ -67,11 +120,11 @@ const Wrap = styled.div`
 const Btnbox = styled.div`
   form {
     display: flex;
-    margin-top: 60px;
+    margin-top: 70px;
     justify-content: space-evenly;
   }
   input {
-    border: 2px solid black;
+    border: 2px solid #deb887;
     border-radius: 5px;
     height: 20px;
   }
@@ -85,10 +138,10 @@ const Btnbox = styled.div`
     width: 200px;
     height: 26px;
 
+    border: none;
     border-radius: 5px;
   }
   button:hover {
-    background-color: darkgray;
     cursor: pointer;
   }
 `;
