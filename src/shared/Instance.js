@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const token = sessionStorage.getItem("token");
 
 export const instance = axios.create({
-  baseURL: `http://52.79.218.57:3000/`,
+  baseURL: process.env.REACT_APP_URL,
 });
 // const user = useSelector((state) => state.members.members.id);
 // console.log("user", user);
@@ -28,6 +28,7 @@ export const membersApi = {
 };
 
 export const commentsApi = {
+  getOnePost: (payload) => instance.get(`/posts/${payload}`),
   addComment: (payload) =>
     instance.post(`/comments/${payload.postId}`, payload, {
       headers: { Authorization: `Bearer ${token}` },
@@ -45,7 +46,7 @@ export const postsApi = {
 
   creatPost: (inputs) => {
     console.log(inputs);
-    return instance.post(`/posts/${inputs.name}`, inputs, {
+    return instance.post(`/posts`, inputs, {
       headers: { Authorization: `Bearer ${token}` },
     });
   },

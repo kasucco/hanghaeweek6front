@@ -2,31 +2,27 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { __addComment } from "../detail/commentSlice";
+import { __addComment } from "../detail/detailSlice";
 import Comments from "./Comments";
-import { __getComments } from "../detail/commentSlice";
 import { useSelector } from "react-redux";
 import guid from "../../shared/difficultnumber";
 
 const Comment = () => {
   const { id } = useParams();
-  console.log(id);
   const [open, setOpen] = useState();
   const dispatch = useDispatch();
 
   const initialState = {
-    id: 0,
     postId: id,
-    level: 1,
-    commentAuthor: "",
     comment: "",
   };
   const [comment, setComment] = useState(initialState);
-  const { isLoading, error, comments } = useSelector((state) => state.comments);
 
-  useEffect(() => {
-    dispatch(__getComments());
-  }, [dispatch]);
+  const { isLoading, error, comments } = useSelector((state) => state.detail);
+
+  // useEffect(() => {
+  //   dispatch(__getComments());
+  // }, [dispatch]);
 
   if (isLoading) {
     return <div> 로딩 중 ... </div>;
@@ -40,6 +36,7 @@ const Comment = () => {
     dispatch(__addComment(comment));
     setComment(initialState);
   };
+  // console.log(comment);
   return (
     <>
       <Wrap open={open}>
@@ -59,7 +56,7 @@ const Comment = () => {
                 commentOnsumitHandler(comment);
               }}
             >
-              <input
+              {/* <input
                 value={comment.commentAuthor}
                 type="text"
                 placeholder="이름"
@@ -70,7 +67,7 @@ const Comment = () => {
                     commentAuthor: value,
                   });
                 }}
-              />
+              /> */}
               <input
                 value={comment.comment}
                 type="text"
@@ -86,11 +83,16 @@ const Comment = () => {
               <button>추가하기</button>
             </form>
           </Btnbox>
-          {comments.map((comment) => (
-            <div key={guid()}>
-              {+id === +comment.postId ? <Comments comment={comment} /> : null}
-            </div>
-          ))}
+          {/* {comments.map((comment) => {
+            console.log(comment);
+            return (
+              <div key={guid()}>
+                {+id === +comment.postId ? (
+                  <Comments comment={comment} />
+                ) : null}
+              </div>
+            );
+          })} */}
         </div>
       </Wrap>
     </>

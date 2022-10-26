@@ -1,20 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import {
-  __deleteComment,
-  __getComments,
-  __updateComment,
-} from "../detail/commentSlice";
+import { __deleteComment, __updateComment } from "../detail/detailSlice";
 
 const Comments = ({ comment }) => {
   const dispatch = useDispatch();
   const [isEdit, setEdit] = useState(false);
   const [input, setInput] = useState("");
 
-  useEffect(() => {
-    dispatch(__getComments());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(__getComments());
+  // }, [dispatch]);
 
   const fnDeleteCommentHandler = (commentId) => {
     const result = window.confirm("정말로 삭제하시겠습니까?");
@@ -32,10 +28,9 @@ const Comments = ({ comment }) => {
 
   return (
     <CommentBox key={comment.id}>
-      <CommentAuthor>{comment.commentAuthor}</CommentAuthor>
       {!isEdit ? (
         <>
-          <CommentBody>{comment.commentBody}</CommentBody>
+          <CommentBody>{comment.comment}</CommentBody>
           <button onClick={() => setEdit(true)}>수정</button>
         </>
       ) : (

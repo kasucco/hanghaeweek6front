@@ -5,14 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
 import { useParams } from "react-router-dom";
 import Comment from "../detail/Comment";
+import { __getOnePost } from "../detail/detailSlice";
 
 function Detail() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("1");
   const { isLoading, error } = useSelector((state) => state.posts);
-  const { findAllPost } = useSelector((state) => state.posts.findAllPost);
   const params = useParams();
-  console.log(params.id);
   const handleClickButton = (e) => {
     const { name } = e.target;
     setContent(name);
@@ -21,8 +20,11 @@ function Detail() {
   // 이벤트 메소드를 이용하여 name값을 담는다. 그리고 나서 setContent에 name을 담고 content에 담는다.
 
   useEffect(() => {
-    dispatch(__getPosts());
-  }, [dispatch]);
+    dispatch(__getOnePost(params.id));
+  }, []);
+
+  const { detail } = useSelector((state) => state.detail);
+  console.log(detail);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
