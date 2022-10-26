@@ -21,7 +21,7 @@ function MembersLogin() {
     dispatch(AcyncGetMember());
     navigate(`/members/login/${account.id}`);
   };
-
+  console.log(account.id);
   const {
     register,
     formState: { errors },

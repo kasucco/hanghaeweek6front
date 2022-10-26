@@ -21,10 +21,10 @@ function Detail() {
 
   useEffect(() => {
     dispatch(__getOnePost(params.id));
+    console.log("useeffect");
   }, []);
 
-  const { detail } = useSelector((state) => state.detail);
-  console.log(detail);
+  const detail = useSelector((state) => state.detail.posts);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
