@@ -3,7 +3,8 @@ import axios from "axios";
 import { commentsApi } from "../../shared/Instance";
 
 const initialState = {
-  posts: [],
+  posts: {},
+  detail: [],
   isLoading: false,
   error: null,
 };
@@ -71,8 +72,12 @@ export const detailSlice = createSlice({
       state.isLoading = true;
     },
     [__getOnePost.fulfilled]: (state, action) => {
+      console.log(action.payload.data.findOnePost);
+      const payloadPost = action.payload.data.findOnePost;
+      const payloadContent = action.payload.data.findAllComment;
       state.isLoading = false;
-      state.detail = [...state.detail, action.payload];
+      state.detail = payloadContent;
+      state.posts = payloadPost;
     },
     [__getOnePost.rejected]: (state, action) => {
       state.isLoading = false;
