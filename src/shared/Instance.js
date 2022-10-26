@@ -45,7 +45,7 @@ export const postsApi = {
 
   creatPost: (inputs) => {
     console.log(inputs);
-    return instance.post(`/posts/${inputs.name}`, inputs, {
+    return instance.post(`/posts`, inputs, {
       headers: { Authorization: `Bearer ${token}` },
     });
   },
