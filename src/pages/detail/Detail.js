@@ -8,7 +8,7 @@ import Comment from "../detail/Comment";
 
 function Detail() {
   const dispatch = useDispatch();
-  const [content, setContent] = useState("코드");
+  const [content, setContent] = useState("1");
   const { isLoading, error } = useSelector((state) => state.posts);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
   const params = useParams();

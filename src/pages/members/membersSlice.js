@@ -29,6 +29,7 @@ export const AcyncCreateMember = createAsyncThunk(
     try {
       console.log("create", payload);
       const data = await membersApi.creatMember(payload);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

@@ -6,16 +6,17 @@ import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { LayoutTop } from "../../shared/Layout";
 import Code from "../../commponents/Code";
-import useSelector from "react";
 import jwt_decode from "jwt-decode";
 import { __getPosts } from "../post/postSlice";
+import { createContext } from "react";
+import { useSelector } from "react-redux";
 
 const Mycard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const [token, setToken] = useState("");
-  console.log(token.postid);
+  console.log(token);
   useEffect(() => {
     dispatch(__getPosts);
     const storedToken = sessionStorage.getItem("token");
@@ -25,7 +26,7 @@ const Mycard = () => {
       let expirationDate = decodedData.exp;
       var current_time = Date.now() / 1000;
       if (expirationDate < current_time) {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
       }
     }
   }, []);
@@ -40,7 +41,7 @@ const Mycard = () => {
           <MyBox onClick={() => navigate("/detail")}>
             {findAllPost &&
               findAllPost.map((post) => {
-                if (token.postId == post.postId) {
+                if (token.userId == post.postId) {
                   return <Code key={post.postId} postsData={post} />;
                 } else return null;
               })}

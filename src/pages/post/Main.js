@@ -9,14 +9,15 @@ import { useNavigate } from "react-router-dom";
 function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [content, setContent] = useState("코드");
+  const [content, setContent] = useState("1");
 
   useEffect(() => {
-    dispatch(__getPosts);
+    dispatch(__getPosts(Number(content)));
   }, []);
   const { isLoading, error } = useSelector((state) => state.posts);
+  const { findPost } = useSelector((state) => state.posts);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
-  console.log(findAllPost);
+  console.log(findPost);
 
   const handleClickButton = (e) => {
     const { name } = e.target;
@@ -24,13 +25,8 @@ function Main() {
   };
 
   useEffect(() => {
-    setContent("코드");
+    setContent("1");
   }, []);
-  console.log("content", content);
-
-  useEffect(() => {
-    dispatch(__getPosts());
-  }, [dispatch]);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -80,9 +76,7 @@ function Main() {
           </div>
           {findAllPost &&
             findAllPost.map((post) => {
-              if (content == post.name) {
-                return <Code key={post.postId} postsData={post} />;
-              } else return null;
+              return <Code key={post.postId} postsData={post} />;
             })}
         </div>
       </List>
