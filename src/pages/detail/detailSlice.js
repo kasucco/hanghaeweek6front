@@ -3,18 +3,19 @@ import axios from "axios";
 import { commentsApi } from "../../shared/Instance";
 
 const initialState = {
-  comments: [],
+  posts: [],
   isLoading: false,
   error: null,
 };
 
-export const __getComments = createAsyncThunk(
-  "posts/getComments",
-  async (_, thunkAPI) => {
+export const __getOnePost = createAsyncThunk(
+  "posts/getOnePost",
+  async (payload, thunkAPI) => {
+    console.log(payload);
     try {
-      const data = await axios.get("http://52.79.218.57:3000/comments");
-
-      return thunkAPI.fulfillWithValue(data.data);
+      const data = await commentsApi.getOnePost(payload);
+      console.log(data);
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -27,22 +28,7 @@ export const __addComment = createAsyncThunk(
     console.log(payload);
     try {
       const data = await commentsApi.addComment(payload);
-      return thunkAPI.fulfillWithValue(payload);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
-
-export const __getCommentById = createAsyncThunk(
-  "posts/getComment",
-  async (payload, thunkAPI) => {
-    try {
-      const data = await axios.get(
-        `http://52.79.218.57:3000/comments/${payload.postId}`
-      );
-
-      return thunkAPI.fulfillWithValue(data.data);
+      return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -76,22 +62,22 @@ export const __updateComment = createAsyncThunk(
   }
 );
 
-export const commentsSlice = createSlice({
-  name: "comments",
+export const detailSlice = createSlice({
+  name: "detail",
   initialState,
   reducers: {},
   extraReducers: {
-    [__getComments.pending]: (state) => {
+    [__getOnePost.pending]: (state) => {
       state.isLoading = true;
     },
-    [__getComments.fulfilled]: (state, action) => {
+    [__getOnePost.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = action.payload;
+      state.detail = [...state.detail, action.payload];
     },
-    [__getComments.pending]: (state, action) => {
+    [__getOnePost.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
     },
+
     [__addComment.pending]: (state) => {
       state.isLoading = true;
     },
@@ -101,18 +87,6 @@ export const commentsSlice = createSlice({
     },
     [__addComment.rejected]: (state, action) => {
       state.isLoading = false;
-      state.error = action.payload;
-    },
-    [__getCommentById.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__getCommentById.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.comments = action.payload;
-    },
-    [__getCommentById.pending]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
     },
     //댓글 삭제
     [__deleteComment.pending]: (state) => {
@@ -152,5 +126,4 @@ export const commentsSlice = createSlice({
   },
 });
 
-export const {} = commentsSlice.actions;
-export default commentsSlice.reducer;
+export default detailSlice.reducer;
