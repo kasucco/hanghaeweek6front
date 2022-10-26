@@ -10,14 +10,12 @@ function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState("1");
-  console.log(content);
   useEffect(() => {
     dispatch(__getPosts());
   }, [content]);
   const { isLoading, error } = useSelector((state) => state.posts);
   const { findPost } = useSelector((state) => state.posts);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
-  console.log(findPost);
 
   const handleClickButton = (e) => {
     const { name } = e.target;

@@ -28,7 +28,7 @@ function Mypage() {
   const deleteAccount = () => {
     if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
       axios
-        .delete(`http://52.79.218.57:3000/members/login`, {
+        .delete(`https://www.spartaseosu.shop/members/login`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
