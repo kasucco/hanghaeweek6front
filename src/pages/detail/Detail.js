@@ -38,7 +38,7 @@ function Detail() {
         <Content>
           <div>제목:{detail.title}</div>
           <div>닉네임;{detail.nickname}</div>
-          <div>내용:{detail.content}</div>햣
+          <div>내용:{detail.content}</div>
         </Content>
         <Comment />
       </Layout>
