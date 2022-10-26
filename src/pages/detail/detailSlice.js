@@ -69,9 +69,9 @@ export const detailSlice = createSlice({
       state.isLoading = true;
     },
     [__getOnePost.fulfilled]: (state, action) => {
-      console.log(action.payload.data.findOnePost);
       const payloadPost = action.payload.data.findOnePost;
       const payloadContent = action.payload.data.findAllComment;
+      console.log("extraReducer", payloadContent);
       state.isLoading = false;
       state.detail = payloadContent;
       state.posts = payloadPost;
@@ -85,7 +85,8 @@ export const detailSlice = createSlice({
     },
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.comments = [...state.comments, action.payload];
+      console.log(action.payload);
+      // state.detail = [...state.detail, action.payload];
     },
     [__addComment.rejected]: (state, action) => {
       state.isLoading = false;

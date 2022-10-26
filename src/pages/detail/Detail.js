@@ -21,10 +21,10 @@ function Detail() {
 
   useEffect(() => {
     dispatch(__getOnePost(params.id));
+    console.log("useeffect");
   }, []);
 
   const detail = useSelector((state) => state.detail.posts);
-  console.log(detail);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -38,7 +38,7 @@ function Detail() {
         <Content>
           <div>제목:{detail.title}</div>
           <div>닉네임;{detail.nickname}</div>
-          <div>내용:{detail.content}</div>햣
+          <div>내용:{detail.content}</div>
         </Content>
         <Comment />
       </Layout>

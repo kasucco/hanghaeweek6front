@@ -16,7 +16,6 @@ const Mycard = () => {
   const dispatch = useDispatch();
 
   const [token, setToken] = useState("");
-  console.log(token);
   useEffect(() => {
     dispatch(__getPosts);
     const storedToken = sessionStorage.getItem("token");
@@ -31,7 +30,6 @@ const Mycard = () => {
     }
   }, []);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
-  console.log(findAllPost);
 
   return (
     <LayoutTop>

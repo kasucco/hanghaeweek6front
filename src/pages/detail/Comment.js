@@ -6,6 +6,7 @@ import { __addComment } from "../detail/detailSlice";
 import Comments from "./Comments";
 import { useSelector } from "react-redux";
 import guid from "../../shared/difficultnumber";
+import { __getOnePost } from "../detail/detailSlice";
 
 const Comment = () => {
   const { id } = useParams();
@@ -18,11 +19,9 @@ const Comment = () => {
   };
   const [comment, setComment] = useState(initialState);
 
-  const { isLoading, error, comments } = useSelector((state) => state.detail);
-
-  // useEffect(() => {
-  //   dispatch(__getComments());
-  // }, [dispatch]);
+  const { isLoading, error } = useSelector((state) => state.detail);
+  const comments = useSelector((state) => state.detail.detail);
+  console.log("댓글", comments);
 
   if (isLoading) {
     return <div> 로딩 중 ... </div>;
@@ -56,18 +55,6 @@ const Comment = () => {
                 commentOnsumitHandler(comment);
               }}
             >
-              {/* <input
-                value={comment.commentAuthor}
-                type="text"
-                placeholder="이름"
-                onChange={(e) => {
-                  const { value } = e.target;
-                  setComment({
-                    ...comment,
-                    commentAuthor: value,
-                  });
-                }}
-              /> */}
               <input
                 value={comment.comment}
                 type="text"
@@ -83,16 +70,14 @@ const Comment = () => {
               <button>추가하기</button>
             </form>
           </Btnbox>
-          {/* {detail.map((comment) => {
+          {comments.map((comment) => {
             console.log(comment);
             return (
               <div key={guid()}>
-                {+id === +comment.postId ? (
-                  <Comments comment={comment} />
-                ) : null}
+                <Comments comment={comment} />
               </div>
             );
-          })} */}
+          })}
         </div>
       </Wrap>
     </>
