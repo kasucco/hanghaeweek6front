@@ -38,29 +38,12 @@ const Mycard = () => {
       <BoxTitle>내가 쓴 글</BoxTitle>
       <TextAll>
         <GridUl>
-          <MyBox onClick={() => navigate("/detail")}>
-            {findAllPost &&
-              findAllPost.map((post) => {
-                if (token.userId == post.postId) {
-                  return <Code key={post.postId} postsData={post} />;
-                } else return null;
-              })}
-          </MyBox>
-          <MyBox>
-            <TextSize>테스트</TextSize>
-          </MyBox>
-          <MyBox>
-            <TextSize>테스트</TextSize>
-            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
-          </MyBox>
-          <MyBox>
-            <TextSize>테스트</TextSize>
-            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
-          </MyBox>
-          <MyBox>
-            <TextSize>테스트</TextSize>
-            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
-          </MyBox>
+          {findAllPost &&
+            findAllPost.map((post) => {
+              if (token.userId == post.userId) {
+                return <Code key={post.postId} postsData={post} />;
+              } else return null;
+            })}
         </GridUl>
       </TextAll>
       <BoxTitle>내가 저장한 글</BoxTitle>

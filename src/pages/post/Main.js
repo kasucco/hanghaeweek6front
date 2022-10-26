@@ -12,7 +12,7 @@ function Main() {
   const [content, setContent] = useState("1");
   console.log(content);
   useEffect(() => {
-    dispatch(__getPosts(Number(content)));
+    dispatch(__getPosts());
   }, [content]);
   const { isLoading, error } = useSelector((state) => state.posts);
   const { findPost } = useSelector((state) => state.posts);
@@ -72,7 +72,9 @@ function Main() {
           </div>
           {findAllPost &&
             findAllPost.map((post) => {
-              return <Code key={post.postId} postsData={post} />;
+              if (post.name == content) {
+                return <Code key={post.postId} postsData={post} />;
+              } else return null;
             })}
         </div>
       </List>

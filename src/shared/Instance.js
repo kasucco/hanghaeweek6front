@@ -39,9 +39,8 @@ export const commentsApi = {
 
 export const postsApi = {
   //각각의 get,post,delete,patch입니다!
-  getPosts: (payload) => {
-    console.log(payload);
-    return instance.get(`/posts/${payload}`);
+  getPosts: () => {
+    return instance.get(`/posts`);
   },
 
   creatPost: (inputs) => {
