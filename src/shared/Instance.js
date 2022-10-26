@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 const token = sessionStorage.getItem("token");
 
 export const instance = axios.create({
-  baseURL: process.env.REACT_APP_URL,
+  baseURL: `https://www.spartaseosu.shop`,
 });
 // const user = useSelector((state) => state.members.members.id);
 // console.log("user", user);

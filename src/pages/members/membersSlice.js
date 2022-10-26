@@ -103,6 +103,7 @@ const membersSlice = createSlice({
     },
   },
   extraReducers: {
+    //로그인
     [AcyncLoginMember.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.members = payload;
@@ -111,8 +112,9 @@ const membersSlice = createSlice({
     [AcyncLoginMember.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.err = payload;
-      console.log(payload.res.data);
+      console.log(payload);
     },
+    //회원가입
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
     },
@@ -121,9 +123,11 @@ const membersSlice = createSlice({
       state.err = payload;
       console.log(state.err.response.data);
     },
+    //회원삭제
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
     },
+    //회원정보 수정
     [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
     },
