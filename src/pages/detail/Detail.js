@@ -35,7 +35,11 @@ function Detail() {
   return (
     <>
       <Layout>
-        <Content>상세페이지입니다.</Content>
+        <Content>
+          <div>제목:{detail.title}</div>
+          <div>닉네임;{detail.nickname}</div>
+          <div>내용:{detail.content}</div>햣
+        </Content>
         <Comment />
       </Layout>
     </>
