@@ -1,24 +1,49 @@
-import { useEffect } from "react";
+import react from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { LayoutTop } from "../../shared/Layout";
+import Code from "../../commponents/Code";
+import useSelector from "react";
+import jwt_decode from "jwt-decode";
+import { __getPosts } from "../post/postSlice";
 
 const Mycard = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  //   useEffect(() => {
-  //     dispatch("게시글 정보");
-  //   });
+
+  const [token, setToken] = useState("");
+  console.log(token.postid);
+  useEffect(() => {
+    dispatch(__getPosts);
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      let decodedData = jwt_decode(storedToken);
+      setToken(decodedData);
+      let expirationDate = decodedData.exp;
+      var current_time = Date.now() / 1000;
+      if (expirationDate < current_time) {
+        localStorage.removeItem("token");
+      }
+    }
+  }, []);
+  const { findAllPost } = useSelector((state) => state.posts.findAllPost);
+  console.log(findAllPost);
+
   return (
     <LayoutTop>
       <BoxTitle>내가 쓴 글</BoxTitle>
       <TextAll>
         <GridUl>
           <MyBox onClick={() => navigate("/detail")}>
-            <TextSize>테스트</TextSize>
-            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+            {findAllPost &&
+              findAllPost.map((post) => {
+                if (token.postId == post.postId) {
+                  return <Code key={post.postId} postsData={post} />;
+                } else return null;
+              })}
           </MyBox>
           <MyBox>
             <TextSize>테스트</TextSize>

@@ -61,7 +61,7 @@ function Form() {
           <SelectBox
             SelectBox
             options={OPTIONS}
-            defaultValue="code"
+            defaultValue="1"
             name="name"
             value={inputs.name}
             parentsFunction={parentsFunction}

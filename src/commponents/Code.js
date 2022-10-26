@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 const Code = ({ postsData, detailPostData }) => {
   const navigate = useNavigate();
-  console.log(postsData);
   return (
     <CodeBox onClick={() => navigate(`/detail/${postsData.postId}`)}>
       <div>

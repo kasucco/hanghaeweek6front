@@ -4,14 +4,19 @@ import Layout from "../../shared/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
 import Code from "../../commponents/Code";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState("코드");
+
+  useEffect(() => {
+    dispatch(__getPosts);
+  }, []);
   const { isLoading, error } = useSelector((state) => state.posts);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
+  console.log(findAllPost);
 
   const handleClickButton = (e) => {
     const { name } = e.target;
@@ -36,16 +41,16 @@ function Main() {
       <Layout>
         <Nav>
           <Gnb>
-            <button onClick={() => navigate("/")} name="코드">
+            <button onClick={() => navigate("/")} name="1">
               코드
             </button>
-            <button onClick={handleClickButton} name="에러">
+            <button onClick={handleClickButton} name="2">
               에러
             </button>
-            <button onClick={handleClickButton} name="잡담">
+            <button onClick={handleClickButton} name="3">
               잡담
             </button>
-            <button onClick={handleClickButton} name="질문">
+            <button onClick={handleClickButton} name="4">
               질문
             </button>
           </Gnb>
@@ -60,11 +65,11 @@ function Main() {
         <div>
           <div>
             {" "}
-            {content == "코드" ? (
+            {content == "1" ? (
               <h2>코드👾</h2>
-            ) : content == "에러" ? (
+            ) : content == "2" ? (
               <h2>에러👾</h2>
-            ) : content == "잡담" ? (
+            ) : content == "3" ? (
               <h2>잡담👾</h2>
             ) : (
               <h2>질문👾</h2>
@@ -72,8 +77,6 @@ function Main() {
           </div>
           {findAllPost &&
             findAllPost.map((post) => {
-              console.log(post, content);
-
               if (content == post.name) {
                 return <Code key={post.postId} postsData={post} />;
               } else return null;

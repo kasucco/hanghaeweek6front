@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import { useDispatch } from "react-redux";
-import { AcyncUpdateMember, AcyncGetMember } from "./membersSlice";
+import { AcyncUpdateMember, AcyncLoginMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
@@ -10,27 +10,32 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import * as MB from "./membersCSS";
 import useInput from "../../shared/useInput";
+import jwt_decode from "jwt-decode";
 
 function MembersModify() {
+  const storedToken = sessionStorage.getItem("token");
+  const decodedData = jwt_decode(storedToken);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  useEffect(() => {
-    dispatch(AcyncGetMember());
-  }, [dispatch]);
-  const globalmembers = useSelector((state) => state.members.members.login);
-  console.log(globalmembers);
-  const [inputs, changeHandle] = useInput(globalmembers);
+
+  // const nicknameValue = defa
 
   const [account, setAccount] = useState({
-    id: "",
+    nickname: "",
     password: "",
     confirm: "",
   });
 
+  const loginData = {
+    id: decodedData.id,
+    password: account.password,
+  };
+  console.log(decodedData.id, decodedData.nickname, account.password);
   const onModifyHandler = () => {
     dispatch(AcyncUpdateMember(account));
-
-    // navigate("/");
+    navigate(`/members/login/${decodedData.id}`);
+    dispatch(AcyncLoginMember(loginData));
   };
 
   const {
@@ -48,10 +53,10 @@ function MembersModify() {
           }}
         >
           <MB.Stwrap>
-            <MB.Stlabel>아이디</MB.Stlabel>
+            <MB.Stlabel>닉네임</MB.Stlabel>
             <MB.Stinputs
-              {...register("id", {
-                required: "아이디를 입력해주세요.",
+              {...register("nickname", {
+                required: "제목을 입력해주세요.",
                 minLength: {
                   value: 3,
                   message: "3글자 이상 입력해주세요.",
@@ -63,19 +68,18 @@ function MembersModify() {
               })}
               minLength="3"
               type="text"
-              name="id"
-              // defaultValue={}
+              // value={}
+              defaultValue={decodedData.nickname}
               onChange={(ev) => {
                 const { value } = ev.target;
                 setAccount({
                   ...account,
-                  id: value,
+                  nickname: value,
                 });
               }}
             />
-            <MB.Warn>{errors?.author?.message}</MB.Warn>
+            <MB.Warn>{errors?.title?.message}</MB.Warn>
           </MB.Stwrap>
-
           <MB.Stwrap>
             <MB.Stlabel>비밀번호</MB.Stlabel>
             <MB.Stinputs
@@ -128,7 +132,7 @@ function MembersModify() {
             />
             <MB.Warn>{errors?.body?.message}</MB.Warn>
           </MB.Stwrap>
-          <Button onClick={() => onModifyHandler} size="lg">
+          <Button onClick={() => onModifyHandler()} size="lg">
             회원정보수정하기
           </Button>
         </MB.Stform>

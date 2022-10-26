@@ -1,41 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Mycard from "./Mycard";
 import { useDispatch } from "react-redux";
-import { AcyncDeleteMember } from "../members/membersSlice";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { useState } from "react";
 
 function Mypage() {
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      let decodedData = jwt_decode(storedToken);
+      setToken(decodedData);
+      let expirationDate = decodedData.exp;
+      var current_time = Date.now() / 1000;
+      if (expirationDate < current_time) {
+        localStorage.removeItem("token");
+      }
+    }
+  }, []);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const useConfirm = (message = "", onConfirm, onCancel) => {
-  //   if (onConfirm && typeof onConfirm !== "function") {
-  //     return;
-  //   }
 
-  //   if (onCancel && typeof onCancel !== "function") {
-  //     return;
-  //   }
-
-  //   const confirmAction = () => {
-  //     if (confirm(message)) {
-  //       onConfirm();
-  //     } else {
-  //       onCancel();
-  //     }
-  //   };
-  //   return confirmAction;
-  // };
-  // const deleteAccount = useConfirm("탈퇴하시겠습니까",confirmDelete)
-  // const confirmDelete = () => {}
   const deleteAccount = () => {
-    dispatch(AcyncDeleteMember());
+    if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
+      axios
+        .delete(`http://52.79.218.57:3000/members/login`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(() => {
+          sessionStorage.removeItem("token");
+          alert("그동안 이용해주셔서 감사합니다.");
+          navigate("/");
+        })
+        .catch((err) => alert(err.response.data.message));
+    } else {
+      return;
+    }
   };
 
   return (
     <>
       <Layout>
+        <div>{`${token.nickname}님`}</div>
         <button onClick={() => navigate("/membersmodify")}>
           회원정보 수정하기
         </button>

@@ -1,9 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import jwt_decode from "jwt-decode";
 
 function Header() {
   const navigate = useNavigate();
+  const [token, setToken] = useState("");
+  useEffect(() => {
+    const storedToken = sessionStorage.getItem("token");
+    if (storedToken) {
+      let decodedData = jwt_decode(storedToken);
+      setToken(decodedData);
+      let expirationDate = decodedData.exp;
+      var current_time = Date.now() / 1000;
+      if (expirationDate < current_time) {
+        localStorage.removeItem("token");
+      }
+    }
+  }, []);
+
   return (
     <Head>
       <InnerHead
@@ -22,7 +38,7 @@ function Header() {
           <button
             onClick={(event) => {
               event.stopPropagation();
-              navigate("/mypage");
+              navigate(`/members/login/${token?.id}`);
             }}
           >
             마이페이지

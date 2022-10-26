@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 export const OPTIONS = [
-  { value: "code", name: "코드" },
-  { value: "error", name: "에러" },
-  { value: "chat", name: "잡담" },
-  { value: "question", name: "질문" },
+  { value: "1", name: "코드" },
+  { value: "2", name: "에러" },
+  { value: "3", name: "잡담" },
+  { value: "4", name: "질문" },
 ];
 
 export const SelectBox = ({ options, parentsFunction }) => {
-  const [value, setValue] = useState("코드");
+  const [value, setValue] = useState("1");
 
   const handleChange = (e) => {
     // event handler
@@ -27,7 +27,7 @@ export const SelectBox = ({ options, parentsFunction }) => {
           {options.map((option) => (
             <option
               key={option.value}
-              value={option.name}
+              value={option.value}
               defaultValue={options.defaultValue === option.value}
             >
               {option.name}
