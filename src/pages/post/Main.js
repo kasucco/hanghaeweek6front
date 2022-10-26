@@ -17,8 +17,11 @@ function Main() {
     const { name } = e.target;
     setContent(name);
   };
-  //버튼을 누르면 해당 함수를 실행하며 버튼을 눌렸을때 map()함수로 돌린 data.name을 name에 할당하여
-  // 이벤트 메소드를 이용하여 name값을 담는다. 그리고 나서 setContent에 name을 담고 content에 담는다.
+
+  useEffect(() => {
+    setContent("코드");
+  }, []);
+  console.log("content", content);
 
   useEffect(() => {
     dispatch(__getPosts());
