@@ -4,7 +4,10 @@ import styled from "styled-components";
 const Code = ({ postsData, detailPostData }) => {
   const navigate = useNavigate();
   return (
-    <CodeBox onClick={() => navigate(`/detail/${postsData.postId}`)}>
+    <CodeBox
+      onClick={() => navigate(`/detail/${postsData.postId}`)}
+      postsData={postsData}
+    >
       <div>
         <div>{postsData?.title}</div>
         <div>작성자:{postsData?.nickname}</div>
