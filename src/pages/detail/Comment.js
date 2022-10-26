@@ -83,7 +83,7 @@ const Comment = () => {
               <button>추가하기</button>
             </form>
           </Btnbox>
-          {/* {comments.map((comment) => {
+          {/* {detail.map((comment) => {
             console.log(comment);
             return (
               <div key={guid()}>
