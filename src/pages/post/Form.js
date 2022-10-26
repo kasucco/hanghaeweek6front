@@ -26,7 +26,7 @@ function Form() {
   });
 
   useEffect(() => {
-    setInputs({ ...inputs, name: child });
+    setInputs({ ...inputs, name: Number(child) });
   }, [child]);
 
   console.log(inputs);

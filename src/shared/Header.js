@@ -15,7 +15,7 @@ function Header() {
       let expirationDate = decodedData.exp;
       var current_time = Date.now() / 1000;
       if (expirationDate < current_time) {
-        localStorage.removeItem("token");
+        sessionStorage.removeItem("token");
       }
     }
   }, []);
