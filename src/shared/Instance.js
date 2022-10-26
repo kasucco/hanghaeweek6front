@@ -27,6 +27,16 @@ export const membersApi = {
     }),
 };
 
+export const commentsApi = {
+  addComment: (payload) =>
+    instance.post(`/comments/${payload.postId}`, payload, {
+      headers: { Authorization: `Bearer ${token}` },
+    }), //각각의 get,post,delete,patch입니다!
+  deleteComment: (payload) => instance.delete(`/comments/${payload.postId}`),
+  updateComment: (payload, edit) =>
+    instance.patch(`/comments/${payload.postId}`, { memo: edit }),
+};
+
 export const postsApi = {
   //각각의 get,post,delete,patch입니다!
   creatPost: (posts) => {

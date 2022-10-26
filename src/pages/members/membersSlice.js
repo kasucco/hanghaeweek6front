@@ -11,8 +11,10 @@ const url = process.env.REACT_APP_URL1;
 export const AcyncLoginMember = createAsyncThunk(
   "members/loginMember",
   async (payload, thunkAPI) => {
+    console.log(payload);
     try {
       const data = await membersApi.loginMember(payload);
+      console.log(data);
       sessionStorage.setItem("token", data.data.data.token);
       return payload;
     } catch (error) {
@@ -109,14 +111,12 @@ const membersSlice = createSlice({
     },
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
-      console.log("delete");
     },
     [AcyncUpdateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
     },
     [AcyncGetMember.fulfilled]: (state) => {
       state.isLoading = true;
-      console.log("get");
     },
   },
 });
