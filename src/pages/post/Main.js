@@ -10,10 +10,10 @@ function Main() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [content, setContent] = useState("1");
-
+  console.log(content);
   useEffect(() => {
     dispatch(__getPosts(Number(content)));
-  }, []);
+  }, [content]);
   const { isLoading, error } = useSelector((state) => state.posts);
   const { findPost } = useSelector((state) => state.posts);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
@@ -23,10 +23,6 @@ function Main() {
     const { name } = e.target;
     setContent(name);
   };
-
-  useEffect(() => {
-    setContent("1");
-  }, []);
 
   if (isLoading) {
     return <div>로딩 중...</div>;
@@ -40,7 +36,7 @@ function Main() {
       <Layout>
         <Nav>
           <Gnb>
-            <button onClick={() => navigate("/")} name="1">
+            <button onClick={handleClickButton} name="1">
               코드
             </button>
             <button onClick={handleClickButton} name="2">

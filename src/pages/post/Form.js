@@ -24,12 +24,10 @@ function Form() {
     content: "",
     name: "",
   });
-
+  console.log(inputs);
   useEffect(() => {
     setInputs({ ...inputs, name: Number(child) });
   }, [child]);
-
-  console.log(inputs);
 
   // const isValid = inputs.title.length >= 10 && inputs.content.length >= 10;
 
@@ -42,6 +40,7 @@ function Form() {
   };
   const onclickSubmitHandler = () => {
     dispatch(acyncCreatePosts(inputs));
+
     // navigate("/");
   };
 

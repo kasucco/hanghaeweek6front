@@ -4,6 +4,7 @@ import { membersApi } from "../../shared/Instance";
 
 const initialState = {
   members: {},
+  err: {},
 };
 
 const url = process.env.REACT_APP_URL1;
@@ -107,8 +108,18 @@ const membersSlice = createSlice({
       state.members = payload;
       console.log(payload);
     },
+    [AcyncLoginMember.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.err = payload;
+      console.log(payload.res.data);
+    },
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
+    },
+    [AcyncCreateMember.rejected]: (state, { payload }) => {
+      state.isLoading = true;
+      state.err = payload;
+      console.log(state.err.response.data);
     },
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
