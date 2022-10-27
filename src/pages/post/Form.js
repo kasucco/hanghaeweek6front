@@ -12,7 +12,7 @@ import { acyncCreatePosts } from "./postSlice";
 function Form() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   console.log(token);
   const [child, setChild] = useState();
 

@@ -55,6 +55,15 @@ function Header() {
           <Button
             onClick={(event) => {
               event.stopPropagation();
+              localStorage.removeItem("token");
+              navigate("/members/login");
+            }}
+          >
+            로그아웃
+          </Button>
+          <Button
+            onClick={(event) => {
+              event.stopPropagation();
               navigate("/form");
             }}
           >

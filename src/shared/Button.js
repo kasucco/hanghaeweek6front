@@ -21,7 +21,7 @@ const BtnCover = styled.div`
 
 const BtnStyle = styled.button`
   margin-left: 10px;
-  width: 110px;
+  width: 120px;
   height: 30px;
   background: ghostwhite;
   box-sizing: border-box;

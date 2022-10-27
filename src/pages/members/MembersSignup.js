@@ -22,8 +22,7 @@ function MembersSignup() {
 
   const onAddHandler = () => {
     dispatch(AcyncCreateMember(account));
-
-    // navigate("/members/login");
+    navigate("/members/login");
   };
 
   const onLoginHandler = () => {

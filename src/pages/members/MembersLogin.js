@@ -19,7 +19,7 @@ function MembersLogin() {
   const onLoginHandler = () => {
     dispatch(AcyncLoginMember(account));
     dispatch(AcyncGetMember());
-    navigate(`/members/login/${account.id}`);
+    navigate(`/`);
   };
   console.log(account.id);
   const {

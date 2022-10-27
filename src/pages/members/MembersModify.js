@@ -13,7 +13,7 @@ import useInput from "../../shared/useInput";
 import jwt_decode from "jwt-decode";
 
 function MembersModify() {
-  const storedToken = sessionStorage.getItem("token");
+  const storedToken = localStorage.getItem("token");
   const decodedData = jwt_decode(storedToken);
 
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ function MembersModify() {
   const onModifyHandler = () => {
     dispatch(AcyncUpdateMember(account));
     navigate(`/members/login/${decodedData.id}`);
-    dispatch(AcyncLoginMember(loginData));
+    // dispatch(AcyncLoginMember(loginData));
   };
 
   const {
