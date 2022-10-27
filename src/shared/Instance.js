@@ -7,8 +7,8 @@ const token = localStorage.getItem("token");
 export const instance = axios.create({
   baseURL:
     // `http://13.125.143.92:3000`,
-    `http://13.209.80.213:3000`,
-  // `https://www.spartaseosu.shop`,
+    // `http://13.209.80.213:3000`,
+    `https://www.spartaseosu.shop`,
 });
 // const user = useSelector((state) => state.members.members.id);
 // console.log("user", user);
@@ -32,8 +32,8 @@ export const membersApi = {
 
 export const commentsApi = {
   getOnePost: (payload) => instance.get(`/posts/${payload}`),
-  addComment: (payload) =>
-    instance.post(`/comments/${payload.postId}`, payload, {
+  addComment: (postIdComment) =>
+    instance.post(`/comments/${postIdComment.postId}`, postIdComment, {
       headers: { Authorization: `Bearer ${token}` },
     }), //각각의 get,post,delete,patch입니다!
   deleteComment: (params) => instance.delete(`/comments/${params}`),
