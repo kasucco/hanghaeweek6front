@@ -44,7 +44,7 @@ const Mycard = () => {
             })}
         </GridUl>
       </TextAll>
-      <BoxTitle>내가 저장한 글</BoxTitle>
+      {/* <BoxTitle>내가 저장한 글</BoxTitle>
       <TextAll>
         <GridUl>
           <MyBox>
@@ -53,9 +53,22 @@ const Mycard = () => {
           </MyBox>
           <MyBox>
             <TextSize>테스트</TextSize>
+            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+          </MyBox>
+          <MyBox>
+            <TextSize>테스트</TextSize>
+            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+          </MyBox>
+          <MyBox>
+            <TextSize>테스트</TextSize>
+            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+          </MyBox>
+          <MyBox>
+            <TextSize>테스트</TextSize>
+            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
           </MyBox>
         </GridUl>
-      </TextAll>
+      </TextAll> */}
     </LayoutTop>
   );
 };
@@ -87,6 +100,7 @@ const TextSizeP = styled.p`
 
 const TextAll = styled.div`
   display: flex;
+  margin: 0 auto;
   /* background-color: blue; */
 `;
 
