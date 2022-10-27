@@ -5,7 +5,9 @@ import { useSelector } from "react-redux";
 const token = localStorage.getItem("token");
 
 export const instance = axios.create({
-  baseURL: `http://13.209.80.213:3000`,
+  baseURL:
+    // `http://13.125.143.92:3000`,
+    `http://13.209.80.213:3000`,
   // `https://www.spartaseosu.shop`,
 });
 // const user = useSelector((state) => state.members.members.id);
@@ -34,9 +36,15 @@ export const commentsApi = {
     instance.post(`/comments/${payload.postId}`, payload, {
       headers: { Authorization: `Bearer ${token}` },
     }), //각각의 get,post,delete,patch입니다!
-  deleteComment: (payload) => instance.delete(`/comments/${payload.postId}`),
-  updateComment: (payload, edit) =>
-    instance.patch(`/comments/${payload.postId}`, { memo: edit }),
+  deleteComment: (params) => instance.delete(`/comments/${params}`),
+  updateComment: (params, payload) =>
+    instance.put(
+      `/comments/${params}`,
+      { memo: payload },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    ),
 };
 
 export const postsApi = {
@@ -52,14 +60,14 @@ export const postsApi = {
     });
   },
 
-  deletePost: (membersId) =>
-    instance.delete(`/posts/${membersId}`, {
+  deletePost: (params) =>
+    instance.delete(`/posts/${params}`, {
       headers: { Authorization: `Bearer ${token}` },
     }),
-  updatePost: (membersId, edit) =>
-    instance.patch(
-      `/posts/${membersId}`,
-      { memo: edit },
+  updatePost: (params, paylaod) =>
+    instance.put(
+      `/posts/${params}`,
+      { memo: paylaod },
       {
         headers: { Authorization: `Bearer ${token}` },
       }

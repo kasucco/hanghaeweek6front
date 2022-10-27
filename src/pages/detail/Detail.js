@@ -2,14 +2,15 @@ import styled from "styled-components";
 import Layout from "../../shared/Layout";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getPosts } from "../post/postSlice";
-import { useParams } from "react-router-dom";
+import { acyncDeletePosts, __getPosts } from "../post/postSlice";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import Comment from "../detail/Comment";
 import { __getOnePost } from "../detail/detailSlice";
 
 function Detail() {
   const dispatch = useDispatch();
   const [content, setContent] = useState("1");
+  const navigate = useNavigate();
   const { isLoading, error } = useSelector((state) => state.posts);
   const params = useParams();
   const handleClickButton = (e) => {
@@ -31,10 +32,18 @@ function Detail() {
   if (error) {
     return <div>{error.message}</div>;
   }
+
+  const onDeleteHandler = () => {
+    dispatch(acyncDeletePosts(params.id));
+  };
   return (
     <>
       <Layout>
         <Content>
+          <button onClick={() => navigate(`/modify/${params.id}`)}>
+            수정하기
+          </button>
+          <button onClick={() => onDeleteHandler()}>삭제하기</button>
           <div>제목:{detail.title}</div>
           <div>닉네임;{detail.nickname}</div>
           <div>내용:{detail.content}</div>

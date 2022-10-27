@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { __getPosts } from "../post/postSlice";
 import Code from "../../commponents/Code";
-import { Navigate, useNavigate } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import useInput from "../../shared/useInput";
 import { acyncUpdatePosts } from "../post/postSlice";
 import { SelectBox } from "../../commponents/SelectBox";
@@ -16,6 +16,7 @@ function Modify() {
   const dispatch = useDispatch();
   const token = sessionStorage.getItem("token");
   const [child, setChild] = useState();
+  const params = useParams();
 
   const parentsFunction = (e) => {
     setChild(e);
@@ -43,7 +44,7 @@ function Modify() {
     // }
   };
   const onclickSubmitHandler = () => {
-    dispatch(acyncUpdatePosts(inputs));
+    dispatch(acyncUpdatePosts(params.id, inputs));
     // navigate("/");
   };
 

@@ -7,8 +7,7 @@ const initialState = {
   err: {},
 };
 
-const url = process.env.REACT_APP_URL1;
-
+//로그인하기
 export const AcyncLoginMember = createAsyncThunk(
   "members/loginMember",
   async (payload, thunkAPI) => {
@@ -17,13 +16,14 @@ export const AcyncLoginMember = createAsyncThunk(
       const data = await membersApi.loginMember(payload);
       console.log(data);
       localStorage.setItem("token", data.data.data.token);
+      // sessionStorage.setItem("token", data.data.data.token);
       return payload;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-
+//계정 생성
 export const AcyncCreateMember = createAsyncThunk(
   "members/createMember",
   async (payload, thunkAPI) => {
@@ -37,6 +37,7 @@ export const AcyncCreateMember = createAsyncThunk(
     }
   }
 );
+//계정삭제
 export const AcyncDeleteMember = createAsyncThunk(
   "members/deleteMember",
   async (payload, thunkAPI) => {
@@ -49,7 +50,7 @@ export const AcyncDeleteMember = createAsyncThunk(
     }
   }
 );
-
+//계정 정보 수정
 export const AcyncUpdateMember = createAsyncThunk(
   "members/updateMember",
   async (payload, thunkAPI) => {
@@ -76,7 +77,7 @@ export const AcyncGetMember = createAsyncThunk(
     }
   }
 );
-
+//members
 const membersSlice = createSlice({
   name: "members",
   initialState,
