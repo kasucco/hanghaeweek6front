@@ -21,8 +21,7 @@ function Detail() {
 
   useEffect(() => {
     dispatch(__getOnePost(params.id));
-    console.log("useeffect");
-  }, []);
+  }, [dispatch]);
 
   const detail = useSelector((state) => state.detail.posts);
 

@@ -34,6 +34,7 @@ const Comment = () => {
   const commentOnsumitHandler = () => {
     dispatch(__addComment(comment));
     setComment(initialState);
+    dispatch(__getOnePost(id));
   };
   // console.log(comment);
   return (

@@ -8,14 +8,14 @@ function Header() {
   const navigate = useNavigate();
   const [token, setToken] = useState("");
   useEffect(() => {
-    const storedToken = sessionStorage.getItem("token");
+    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       let decodedData = jwt_decode(storedToken);
       setToken(decodedData);
       let expirationDate = decodedData.exp;
       var current_time = Date.now() / 1000;
       if (expirationDate < current_time) {
-        sessionStorage.removeItem("token");
+        localStorage.removeItem("token");
       }
     }
   }, []);

@@ -2,10 +2,11 @@ import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 
-const token = sessionStorage.getItem("token");
+const token = localStorage.getItem("token");
 
 export const instance = axios.create({
-  baseURL: `https://www.spartaseosu.shop`,
+  baseURL: `http://13.209.80.213:3000`,
+  // `https://www.spartaseosu.shop`,
 });
 // const user = useSelector((state) => state.members.members.id);
 // console.log("user", user);

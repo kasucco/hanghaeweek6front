@@ -16,7 +16,7 @@ export const AcyncLoginMember = createAsyncThunk(
     try {
       const data = await membersApi.loginMember(payload);
       console.log(data);
-      sessionStorage.setItem("token", data.data.data.token);
+      localStorage.setItem("token", data.data.data.token);
       return payload;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
