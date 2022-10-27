@@ -24,5 +24,6 @@ const Layouts = styled.div`
   padding: 30px;
   border: 2px solid #000;
   border-radius: 10px;
-  background-color: #deb887;
+  background-color: wheat;
+  height: 90px;
 `;
