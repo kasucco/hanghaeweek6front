@@ -11,7 +11,7 @@ import { useState } from "react";
 function Mypage() {
   const [token, setToken] = useState("");
   useEffect(() => {
-    const storedToken = sessionStorage.getItem("token");
+    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       let decodedData = jwt_decode(storedToken);
       setToken(decodedData);
@@ -28,13 +28,13 @@ function Mypage() {
   const deleteAccount = () => {
     if (window.confirm("확인을 누르면 회원 정보가 삭제됩니다.")) {
       axios
-        .delete(`https://www.spartaseosu.shop/members/login`, {
+        .delete(`http://13.209.80.213:3000/members/login`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
         .then(() => {
-          sessionStorage.removeItem("token");
+          localStorage.removeItem("token");
           alert("그동안 이용해주셔서 감사합니다.");
           navigate("/");
         })

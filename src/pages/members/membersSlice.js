@@ -43,7 +43,7 @@ export const AcyncDeleteMember = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       await membersApi.deleteMember();
-      sessionStorage.removeItem("token");
+      localStorage.removeItem("token");
       return payload;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -108,21 +108,23 @@ const membersSlice = createSlice({
     [AcyncLoginMember.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.members = payload;
-      console.log(payload);
+      alert("로그인 되었습니다.");
     },
     [AcyncLoginMember.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.err = payload;
-      console.log(payload);
+      alert("로그인에 실패하였습니다.");
     },
     //회원가입
     [AcyncCreateMember.fulfilled]: (state, { payload }) => {
       state.isLoading = true;
+      alert("회원가입을 축하드립니다");
     },
     [AcyncCreateMember.rejected]: (state, { payload }) => {
       state.isLoading = true;
       state.err = payload;
       console.log(state.err.response.data);
+      alert("다시 입력해주세요");
     },
     //회원삭제
     [AcyncDeleteMember.fulfilled]: (state, { payload }) => {
