@@ -99,7 +99,7 @@ const Wrap = styled.div`
   .innerDiv {
     position: fixed;
     width: 100%;
-    background-color: #deb887;
+    background-color: wheat;
     height: 30px;
     line-height: 30px;
     color: black;

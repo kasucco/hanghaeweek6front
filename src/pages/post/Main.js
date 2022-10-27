@@ -34,18 +34,18 @@ function Main() {
       <Layout>
         <Nav>
           <Gnb>
-            <button onClick={handleClickButton} name="1">
+            <div onClick={handleClickButton} name="1">
               코드
-            </button>
-            <button onClick={handleClickButton} name="2">
+            </div>
+            <div onClick={handleClickButton} name="2">
               에러
-            </button>
-            <button onClick={handleClickButton} name="3">
+            </div>
+            <div onClick={handleClickButton} name="3">
               잡담
-            </button>
-            <button onClick={handleClickButton} name="4">
+            </div>
+            <div onClick={handleClickButton} name="4">
               질문
-            </button>
+            </div>
           </Gnb>
           <div>
             <input placeholder="키워드 검색"></input>
@@ -101,9 +101,14 @@ const Gnb = styled.div`
     text-align: center;
     border-radius: 15px;
     cursor: pointer;
+    transition: all 0.3s;
   }
   div:hover {
-    background-color: darkgray;
+    border-bottom: 7px solid skyblue;
+  }
+
+  div:active {
+    opacity: 0.6;
   }
 `;
 
@@ -113,7 +118,7 @@ const List = styled.div`
   border: 2px solid black;
   box-sizing: border-box;
   border-radius: 10px;
-  background-color: #deb887;
+  background-color: wheat;
   h2 {
     text-align: center;
   }

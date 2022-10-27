@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import jwt_decode from "jwt-decode";
+import Button from "./Button";
 
 function Header() {
   const navigate = useNavigate();
@@ -28,30 +29,30 @@ function Header() {
         }}
       >
         <div>
-          <HeadH1>가제: 한글오버플로우</HeadH1>
+          <HeadH1>나랏말사미 스택 오버 플로우</HeadH1>
           <HeadP>코드를 기록하고 마음껏 질문하세요</HeadP>
         </div>
         <Login>
           {/* {
             .isDone ? <button>로그아웃</button> : <button>로그인</button>
           } */}
-          <button
+          <Button
             onClick={(event) => {
               event.stopPropagation();
               navigate(`/members/login/${token?.id}`);
             }}
           >
             마이페이지
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={(event) => {
               event.stopPropagation();
               navigate("/members/login");
             }}
           >
             로그인/회원가입
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={(event) => {
               event.stopPropagation();
               localStorage.removeItem("token");
@@ -67,7 +68,7 @@ function Header() {
             }}
           >
             작성하기
-          </button>
+          </Button>
         </Login>
       </InnerHead>
     </Head>
@@ -85,7 +86,7 @@ const Head = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 30px;
-  background-color: #deb887;
+  background-color: wheat;
   border-radius: 10px;
 `;
 
@@ -110,4 +111,17 @@ const HeadP = styled.p`
 const Login = styled.div`
   display: flex;
   align-items: center;
+  /* button {
+    margin-right: 10px;
+    border-radius: 15px;
+    background-color: white;
+    border: 3px solid skyblue;
+    height: 30px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: skyblue;
+    color: white;
+  } */
 `;
