@@ -17,7 +17,6 @@ export default Layout;
 export const LayoutTop = styled.div`
   width: 1200px;
   margin: 0 auto;
-
 `;
 
 const Layouts = styled.div`
@@ -25,5 +24,5 @@ const Layouts = styled.div`
   padding: 30px;
   border: 2px solid #000;
   border-radius: 10px;
-  background-color: #DEB887;
+  background-color: #deb887;
 `;

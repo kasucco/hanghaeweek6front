@@ -26,7 +26,8 @@ export const __addComment = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const data = await commentsApi.addComment(payload);
-      return thunkAPI.fulfillWithValue(data);
+      console.log("addcomment", data.data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -79,14 +80,13 @@ export const detailSlice = createSlice({
     [__getOnePost.rejected]: (state, action) => {
       state.isLoading = false;
     },
-
+    //댓글수정
     [__addComment.pending]: (state) => {
       state.isLoading = true;
     },
     [__addComment.fulfilled]: (state, action) => {
       state.isLoading = false;
-      console.log(action.payload);
-      // state.detail = [...state.detail, action.payload];
+      state.detail = action.payload;
     },
     [__addComment.rejected]: (state, action) => {
       state.isLoading = false;

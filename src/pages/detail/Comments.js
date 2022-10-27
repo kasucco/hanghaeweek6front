@@ -70,7 +70,7 @@ const CommentAuthor = styled.div`
 const CommentBody = styled.div`
   font-size: 20px;
   width: 700px;
-  height: 30px;
+  height: 10px;
 `;
 
 const StText = styled.textarea`
