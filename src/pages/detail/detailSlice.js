@@ -8,7 +8,7 @@ const initialState = {
   isLoading: false,
   error: null,
 };
-
+//게시글 댓글 불러오기
 export const __getOnePost = createAsyncThunk(
   "posts/getOnePost",
   async (payload, thunkAPI) => {
@@ -20,7 +20,7 @@ export const __getOnePost = createAsyncThunk(
     }
   }
 );
-
+//댓글 생성
 export const __addComment = createAsyncThunk(
   "posts/addComment",
   async (payload, thunkAPI) => {
@@ -34,7 +34,7 @@ export const __addComment = createAsyncThunk(
   }
 );
 
-//삭제
+//댓글삭제
 export const __deleteComment = createAsyncThunk(
   "posts/deleteComment",
   async (payload, thunkAPI) => {
@@ -47,12 +47,12 @@ export const __deleteComment = createAsyncThunk(
     }
   }
 );
-
+//댓글 수정하기
 export const __updateComment = createAsyncThunk(
   "posts/updateComment",
-  async (payload, thunkAPI) => {
+  async (params, payload, thunkAPI) => {
     try {
-      const data = await commentsApi.updateComment(payload);
+      const data = await commentsApi.updateComment(params, payload);
 
       return thunkAPI.fulfillWithValue(data);
     } catch (e) {
@@ -66,6 +66,7 @@ export const detailSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
+    //게시글과 댓글 불러오기
     [__getOnePost.pending]: (state) => {
       state.isLoading = true;
     },

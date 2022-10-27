@@ -6,23 +6,23 @@ import { __deleteComment, __updateComment } from "../detail/detailSlice";
 const Comments = ({ comment }) => {
   const dispatch = useDispatch();
   const [isEdit, setEdit] = useState(false);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState({
+    postId: comment.postId,
+    comment: "",
+  });
+  console.log(input);
 
-  // useEffect(() => {
-  //   dispatch(__getComments());
-  // }, [dispatch]);
-
-  const fnDeleteCommentHandler = (commentId) => {
+  const fnDeleteCommentHandler = () => {
     const result = window.confirm("정말로 삭제하시겠습니까?");
     if (result) {
-      dispatch(__deleteComment(commentId));
+      dispatch(__deleteComment(comment.commentId));
     } else {
       return;
     }
   };
 
-  const onClickChangeHandler = (commentId) => {
-    dispatch(__updateComment({ commentId, input }));
+  const onClickChangeHandler = () => {
+    dispatch(__updateComment(comment.commentId, input));
     setEdit(false);
   };
 
@@ -36,15 +36,16 @@ const Comments = ({ comment }) => {
       ) : (
         <>
           <StText
-            value={input}
+            value={input.comment}
             onChange={(e) => {
-              setInput(e.target.value);
+              const modify = e.target.value;
+              setInput({ ...input, comment: modify });
             }}
           ></StText>
-          <button onClick={() => onClickChangeHandler(comment.id)}>저장</button>
+          <button onClick={() => onClickChangeHandler()}>저장</button>
         </>
       )}
-      <button onClick={() => fnDeleteCommentHandler(comment.id)}>삭제</button>
+      <button onClick={() => fnDeleteCommentHandler()}>삭제</button>
     </CommentBox>
   );
 };
