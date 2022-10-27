@@ -14,7 +14,7 @@ export const AcyncLoginMember = createAsyncThunk(
     console.log(payload);
     try {
       const data = await membersApi.loginMember(payload);
-      console.log(data);
+      console.log("login data", data);
       localStorage.setItem("token", data.data.data.token);
       // sessionStorage.setItem("token", data.data.data.token);
       return payload;
@@ -42,7 +42,7 @@ export const AcyncDeleteMember = createAsyncThunk(
   "members/deleteMember",
   async (payload, thunkAPI) => {
     try {
-      await membersApi.deleteMember();
+      await membersApi.deleteMember(payload);
       localStorage.removeItem("token");
       return payload;
     } catch (error) {

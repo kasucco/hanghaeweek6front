@@ -26,7 +26,7 @@ function MembersModify() {
     password: "",
     confirm: "",
   });
-
+  console.log(account);
   const loginData = {
     id: decodedData.id,
     password: account.password,
@@ -69,7 +69,7 @@ function MembersModify() {
               minLength="3"
               type="text"
               // value={}
-              defaultValue={decodedData.nickname}
+              // defaultValue={decodedData.nickname}
               onChange={(ev) => {
                 const { value } = ev.target;
                 setAccount({

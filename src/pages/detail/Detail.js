@@ -9,14 +9,10 @@ import { __getOnePost } from "../detail/detailSlice";
 
 function Detail() {
   const dispatch = useDispatch();
-  const [content, setContent] = useState("1");
   const navigate = useNavigate();
   const { isLoading, error } = useSelector((state) => state.posts);
   const params = useParams();
-  const handleClickButton = (e) => {
-    const { name } = e.target;
-    setContent(name);
-  };
+
   //버튼을 누르면 해당 함수를 실행하며 버튼을 눌렸을때 map()함수로 돌린 data.name을 name에 할당하여
   // 이벤트 메소드를 이용하여 name값을 담는다. 그리고 나서 setContent에 name을 담고 content에 담는다.
 
@@ -25,7 +21,7 @@ function Detail() {
   }, [dispatch]);
 
   const detail = useSelector((state) => state.detail.posts);
-
+  console.log(detail);
   if (isLoading) {
     return <div>로딩 중...</div>;
   }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import Layout from "../../shared/Layout";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Mycard from "./Mycard";
 import { useDispatch } from "react-redux";
 import jwt_decode from "jwt-decode";
@@ -9,9 +9,10 @@ import axios from "axios";
 import { useState } from "react";
 
 function Mypage() {
+  const { id } = useParams();
   const [token, setToken] = useState("");
+  const storedToken = localStorage.getItem("token");
   useEffect(() => {
-    const storedToken = localStorage.getItem("token");
     if (storedToken) {
       let decodedData = jwt_decode(storedToken);
       setToken(decodedData);
@@ -30,7 +31,7 @@ function Mypage() {
       axios
         .delete(`http://13.209.80.213:3000/members/login`, {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${storedToken}`,
           },
         })
         .then(() => {
