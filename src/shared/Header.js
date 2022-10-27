@@ -60,8 +60,8 @@ function Header() {
             }}
           >
             로그아웃
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={(event) => {
               event.stopPropagation();
               navigate("/form");
