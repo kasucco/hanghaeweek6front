@@ -30,4 +30,9 @@ const CodeBox = styled.div`
   margin-top: 20px;
   background-color: white;
   padding: 20px;
+  cursor: pointer;
+  &:hover {
+    background-color: skyblue;
+    opacity: 0.8;
+  }
 `;

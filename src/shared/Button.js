@@ -20,17 +20,19 @@ const BtnCover = styled.div`
 `;
 
 const BtnStyle = styled.button`
-  width: 150px;
-  height: 40px;
+  margin-left: 10px;
+  width: 110px;
+  height: 30px;
   background: ghostwhite;
   box-sizing: border-box;
-  border: 2px solid #000;
+  border: 1px solid #000;
   border-radius: 10px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s;
   &:hover {
-    background: #000;
+    background: skyblue;
     color: #fff;
+    border: none;
   }
 `;
