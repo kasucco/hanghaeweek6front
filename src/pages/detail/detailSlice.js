@@ -23,9 +23,9 @@ export const __getOnePost = createAsyncThunk(
 //댓글 생성
 export const __addComment = createAsyncThunk(
   "posts/addComment",
-  async (payload, thunkAPI) => {
+  async (postIdComment, thunkAPI) => {
     try {
-      const data = await commentsApi.addComment(payload);
+      const data = await commentsApi.addComment(postIdComment);
       console.log("addcomment", data.data);
       return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {

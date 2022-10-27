@@ -13,7 +13,6 @@ function Form() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = localStorage.getItem("token");
-  console.log(token);
   const [child, setChild] = useState();
 
   const parentsFunction = (e) => {
@@ -25,7 +24,7 @@ function Form() {
     content: "",
     name: "",
   });
-  console.log(inputs);
+
   useEffect(() => {
     setInputs({ ...inputs, name: Number(child) });
   }, [child]);

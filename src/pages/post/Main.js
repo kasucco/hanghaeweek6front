@@ -13,13 +13,14 @@ function Main() {
   useEffect(() => {
     dispatch(__getPosts());
   }, [content]);
+
+  console.log(content);
   const { isLoading, error } = useSelector((state) => state.posts);
   const { findPost } = useSelector((state) => state.posts);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
 
   const handleClickButton = (e) => {
-    const { name } = e.target;
-    setContent(name);
+    setContent(e);
   };
 
   if (isLoading) {
@@ -34,16 +35,16 @@ function Main() {
       <Layout>
         <Nav>
           <Gnb>
-            <div onClick={handleClickButton} name="1">
+            <div onClick={() => handleClickButton(1)} name="1">
               코드
             </div>
-            <div onClick={handleClickButton} name="2">
+            <div onClick={() => handleClickButton(2)} name="2">
               에러
             </div>
-            <div onClick={handleClickButton} name="3">
+            <div onClick={() => handleClickButton(3)} name="3">
               잡담
             </div>
-            <div onClick={handleClickButton} name="4">
+            <div onClick={() => handleClickButton(4)} name="4">
               질문
             </div>
           </Gnb>

@@ -18,10 +18,10 @@ const Comment = () => {
     comment: "",
   };
   const [comment, setComment] = useState(initialState);
-
+  console.log("작성중인 댓글", comment);
   const { isLoading, error } = useSelector((state) => state.detail);
   const comments = useSelector((state) => state.detail.detail);
-  console.log("댓글", comments);
+  console.log("서버에서 받은 댓글", comments);
 
   if (isLoading) {
     return <div> 로딩 중 ... </div>;
@@ -34,7 +34,7 @@ const Comment = () => {
   const commentOnsumitHandler = () => {
     dispatch(__addComment(comment));
     setComment(initialState);
-    dispatch(__getOnePost(id));
+    // dispatch(__getOnePost(id));
   };
   // console.log(comment);
   return (
@@ -72,7 +72,6 @@ const Comment = () => {
             </form>
           </Btnbox>
           {comments.map((comment) => {
-            console.log(comment);
             return (
               <div key={guid()}>
                 <Comments comment={comment} />
