@@ -36,8 +36,8 @@ export const SelectBox = ({ options, parentsFunction }) => {
         </Select>
       </FlexBox>
       <IconSVG
-        width="20"
-        height="20"
+        width="10"
+        height="0"
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -55,10 +55,9 @@ export const SelectBox = ({ options, parentsFunction }) => {
 
 // focus 시에 border-color를 red로 변경
 export const Select = styled.select`
-  margin: 0;
-  min-width: 0;
+  width: 90px;
+  height: 33px;
   display: block;
-  width: 100%;
   padding: 8px 8px;
   font-size: inherit;
   line-height: inherit;
@@ -81,11 +80,11 @@ const IconSVG = styled.svg`
   align-self: center;
   width: 24px;
   height: 24px;
+  margin-bottom: 7px;
 `;
 const LabelBox = styled.label`
-  margin-bottom: 15px;
   font-weight: bold;
-  font-size: larger;
+  font-size: 20px;
 `;
 const FlexBox = styled.div`
   display: flex;

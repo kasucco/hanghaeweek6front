@@ -38,28 +38,43 @@ function Detail() {
   };
   return (
     <>
-      <Layout>
-        <Content>
-          <button onClick={() => navigate(`/modify/${params.id}`)}>
-            수정하기
-          </button>
-          <button onClick={() => onDeleteHandler()}>삭제하기</button>
-          <div>제목:{detail.title}</div>
-          <div>닉네임;{detail.nickname}</div>
-          <div>내용:{detail.content}</div>
-        </Content>
-        <Comment />
-      </Layout>
+      <Layout></Layout>
+      <Wrap>
+        <InnerWrap>
+          <Content>
+            <button onClick={() => navigate(`/modify/${params.id}`)}>
+              수정하기
+            </button>
+            <button onClick={() => onDeleteHandler()}>삭제하기</button>
+            <div>제목:{detail.title}</div>
+            <div>닉네임;{detail.nickname}</div>
+            <div>내용:{detail.content}</div>
+          </Content>
+          <Comment />
+        </InnerWrap>
+      </Wrap>
     </>
   );
 }
 
 export default Detail;
 
-const Content = styled.div`
-  width: 90%;
-  height: 600px;
+const Wrap = styled.div`
+  width: 1200px;
+  height: 550px;
   margin: 0 auto;
+  display: flex;
+  align-items: center;
+`;
+
+const InnerWrap = styled.div`
+  width: 100%;
+  height: 400px;
   background-color: white;
-  border: 1px solid black;
+  border: 2px solid black;
+  border-radius: 15px;
+`;
+
+const Content = styled.div`
+  padding: 20px;
 `;

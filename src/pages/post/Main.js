@@ -47,10 +47,6 @@ function Main() {
               질문
             </div>
           </Gnb>
-          <div>
-            <input placeholder="키워드 검색"></input>
-            <button>검색</button>
-          </div>
         </Nav>
       </Layout>
 
@@ -92,6 +88,7 @@ const Nav = styled.div`
 
 const Gnb = styled.div`
   width: 400px;
+  line-height: 50px;
   display: flex;
   justify-content: space-around;
   font-size: 20px;

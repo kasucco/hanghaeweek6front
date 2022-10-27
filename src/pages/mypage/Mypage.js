@@ -59,8 +59,8 @@ function Mypage() {
         >
           회원 삭제하기
         </button>
-        <Mycard />
       </Layout>
+      <Mycard />
     </>
   );
 }
