@@ -31,41 +31,64 @@ const Mycard = () => {
   }, [dispatch]);
   const { findAllPost } = useSelector((state) => state.posts.findAllPost);
   return (
-    <LayoutTop>
-      <BoxTitle>내가 쓴 글</BoxTitle>
-      <TextAll>
-        <GridUl>
-          {findAllPost &&
-            findAllPost.map((post) => {
-              if (token.userId == post.userId) {
-                return <Code key={post.postId} postsData={post} />;
-              } else return null;
-            })}
-        </GridUl>
-      </TextAll>
-      <BoxTitle>내가 저장한 글</BoxTitle>
-      <TextAll>
-        <GridUl>
-          <MyBox>
-            <TextSize>테스트</TextSize>
-            <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
-          </MyBox>
-          <MyBox>
-            <TextSize>테스트</TextSize>
-          </MyBox>
-        </GridUl>
-      </TextAll>
-    </LayoutTop>
+    <>
+      <Wrap>
+        <BoxTitle>내가 쓴 글</BoxTitle>
+        <TextAll>
+          <GridUl>
+            {findAllPost &&
+              findAllPost.map((post) => {
+                if (token.userId == post.userId) {
+                  return <Code key={post.postId} postsData={post} />;
+                } else return null;
+              })}
+          </GridUl>
+        </TextAll>
+        <BoxTitle>내가 저장한 글</BoxTitle>
+        <TextAll>
+          <GridUl>
+            <MyBox>
+              <TextSize>테스트</TextSize>
+              <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+            </MyBox>
+            <MyBox>
+              <TextSize>테스트</TextSize>
+              <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+            </MyBox>
+            <MyBox>
+              <TextSize>테스트</TextSize>
+              <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+            </MyBox>
+            <MyBox>
+              <TextSize>테스트</TextSize>
+              <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+            </MyBox>
+            <MyBox>
+              <TextSize>테스트</TextSize>
+              <TextSizeP>테스트내용입니다 길면 짤려야해요 </TextSizeP>
+            </MyBox>
+          </GridUl>
+        </TextAll>
+      </Wrap>
+    </>
   );
 };
 
 export default Mycard;
 
+const Wrap = styled.div`
+  margin: 30px auto;
+  width: 1200px;
+  border: 3px solid black;
+  border-radius: 15px;
+  background-color: wheat;
+`;
+
 const MyBox = styled.div`
   border: 2px solid gray;
   border-radius: 15px;
   padding: 10px;
-  /* background-color: aquamarine; */
+  background-color: white;
 `;
 
 const TextSize = styled.h1`
@@ -86,6 +109,7 @@ const TextSizeP = styled.p`
 
 const TextAll = styled.div`
   display: flex;
+  margin: 0 auto;
   /* background-color: blue; */
 `;
 
@@ -94,8 +118,9 @@ const GridUl = styled.ul`
   grid-template-columns: repeat(4, 1fr);
   padding-left: 0;
   grid-gap: 20px;
-  width: 100%;
-  /* background-color: gold; */
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 20px;
 `;
 
 const BoxTitle = styled.h1`

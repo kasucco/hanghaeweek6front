@@ -21,8 +21,8 @@ export const LayoutTop = styled.div`
 
 const Layouts = styled.div`
   box-sizing: border-box;
-  padding: 30px;
   border: 2px solid #000;
+  padding: 20px;
   border-radius: 10px;
   background-color: wheat;
   height: 90px;

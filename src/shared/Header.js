@@ -52,6 +52,7 @@ function Header() {
           >
             로그인/회원가입
           </Button>
+          <Button>로그 아웃</Button>
           <Button
             onClick={(event) => {
               event.stopPropagation();

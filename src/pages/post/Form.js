@@ -45,65 +45,67 @@ function Form() {
   };
 
   return (
-    <Layout>
-      <Buttonbox>
-        {/* <Button
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          이전으로
-        </Button> */}
-      </Buttonbox>
-      <Formbox>
-        <Inputbox>
-          <SelectBox
-            SelectBox
-            options={OPTIONS}
-            defaultValue="1"
-            name="name"
-            value={inputs.name}
-            parentsFunction={parentsFunction}
-          />
-
-          <FlexBox>
-            <LabelBox>제목</LabelBox>
-            <Titleinput
-              onChange={changeHandle}
-              type="text"
-              name="title"
-              value={inputs.title}
-              // placeholder="10자 이상 입력해주세요"
-              maxLength={20}
-            ></Titleinput>
-          </FlexBox>
-          <FlexBox>
-            <LabelBox>내용</LabelBox>
-            <Contentinput
-              onChange={changeHandle}
-              type="text"
-              name="content"
-              value={inputs.content}
-              // placeholder="10자 이상 입력해주세요"
-              maxLength={200}
-            ></Contentinput>
-          </FlexBox>
-        </Inputbox>
-      </Formbox>
-      <Buttonbox>
-        <Button
-          onClick={() => {
-            handleButtonValid();
-          }}
-          disabled={inputs.content === "" || inputs.title === ""}
-        >
-          작성완료
-        </Button>
-      </Buttonbox>
-    </Layout>
+    <>
+      <Layout>
+        <SelectBox
+          SelectBox
+          options={OPTIONS}
+          defaultValue="1"
+          name="name"
+          value={inputs.name}
+          parentsFunction={parentsFunction}
+        />
+      </Layout>
+      <Wrap>
+        <Formbox>
+          <Inputbox>
+            <FlexBox>
+              <LabelBox>제목</LabelBox>
+              <Titleinput
+                onChange={changeHandle}
+                type="text"
+                name="title"
+                value={inputs.title}
+                // placeholder="10자 이상 입력해주세요"
+                maxLength={20}
+              ></Titleinput>
+            </FlexBox>
+            <FlexBox>
+              <LabelBox>내용</LabelBox>
+              <Contentinput
+                onChange={changeHandle}
+                type="text"
+                name="content"
+                value={inputs.content}
+                // placeholder="10자 이상 입력해주세요"
+                maxLength={200}
+              ></Contentinput>
+            </FlexBox>
+          </Inputbox>
+        </Formbox>
+        <Buttonbox>
+          <Button
+            onClick={() => {
+              handleButtonValid();
+            }}
+            disabled={inputs.content === "" || inputs.title === ""}
+          >
+            작성완료
+          </Button>
+        </Buttonbox>
+      </Wrap>
+    </>
   );
 }
 export default Form;
+
+const Wrap = styled.div`
+  width: 1200px;
+  margin: 30px auto;
+  border: 2px solid black;
+  border-radius: 15px;
+  background-color: wheat;
+`;
 
 const Formbox = styled.form`
   padding: 20px;
@@ -152,6 +154,7 @@ const Contentinput = styled.textarea`
 `;
 
 const Buttonbox = styled.div`
-  background: transparent;
-  text-align: right;
+  position: relative;
+  bottom: 30px;
+  right: 40px;
 `;

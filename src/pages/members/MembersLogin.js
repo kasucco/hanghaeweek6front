@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Layout from "../../shared/Layout";
+import Header from "../../shared/Header";
 import { useDispatch } from "react-redux";
 import { AcyncGetMember, AcyncLoginMember } from "./membersSlice";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import Button from "../../shared/Button";
 import { useState } from "react";
 import * as MB from "./membersCSS";
+import styled from "styled-components";
 
 function MembersLogin() {
   const dispatch = useDispatch();
@@ -27,7 +28,8 @@ function MembersLogin() {
     formState: { errors },
   } = useForm({ mode: "onBlur" });
   return (
-    <Layout>
+    <>
+      <Header></Header>
       <MB.StContainer>
         <MB.StTitle>로그인</MB.StTitle>
         <MB.Stform
@@ -89,17 +91,25 @@ function MembersLogin() {
             />
             <MB.Warn>{errors?.body?.message}</MB.Warn>
           </MB.Stwrap>
-
-          <Button onClick={() => navigate("/members/signup")} size="lg">
-            가입하기
-          </Button>
-          <Button onClick={onLoginHandler} size="lg">
-            로그인하기
-          </Button>
+          <ButtonBox>
+            <Button onClick={() => navigate("/members/signup")} size="lg">
+              가입하기
+            </Button>
+            <Button onClick={onLoginHandler} size="lg">
+              로그인하기
+            </Button>
+          </ButtonBox>
         </MB.Stform>
       </MB.StContainer>
-    </Layout>
+    </>
   );
 }
 
 export default MembersLogin;
+
+const ButtonBox = styled.div`
+  margin-top: 20px;
+  Button {
+    margin-bottom: 20px;
+  }
+`;
